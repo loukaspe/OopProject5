@@ -1,0 +1,113 @@
+# depslib dependency file v1.0
+1518777431 source:c:\users\loukaswhatdup\desktop\di.uoa\2nd_year\c++\ergasiamathimatos\inventory.cpp
+	<iostream>
+	<string>
+	<vector>
+	<assert.h>
+	"Inventory.h"
+
+1518777431 source:c:\users\loukaswhatdup\desktop\di.uoa\2nd_year\c++\ergasiamathimatos\item.cpp
+	<iostream>
+	<string>
+	"Item.h"
+
+1518777431 c:\users\loukaswhatdup\desktop\di.uoa\2nd_year\c++\ergasiamathimatos\item.h
+	<iostream>
+	<string>
+
+1518829950 source:c:\users\loukaswhatdup\desktop\di.uoa\2nd_year\c++\ergasiamathimatos\living.cpp
+	<iostream>
+	<string>
+	"Living.h"
+
+1518399396 c:\users\loukaswhatdup\desktop\di.uoa\2nd_year\c++\ergasiamathimatos\living1.h
+	<iostream>
+	<string>
+
+1518777431 source:c:\users\loukaswhatdup\desktop\di.uoa\2nd_year\c++\ergasiamathimatos\spell.cpp
+	<iostream>
+	<string>
+	"Spell.h"
+
+1518777431 c:\users\loukaswhatdup\desktop\di.uoa\2nd_year\c++\ergasiamathimatos\spell.h
+	<iostream>
+	<string>
+
+1518702558 source:c:\users\loukaswhatdup\desktop\di.uoa\2nd_year\c++\ergasiamathimatos\main.cpp
+	<iostream>
+	<string>
+	"Item.h"
+	"Spell.h"
+	"Living.h"
+
+1518744194 source:c:\users\loukaswhatdup\desktop\di.uoa\2nd_year\c++\ergasiamathimatos\nonaccessiblesquare.cpp
+	"nonAccessibleSquare.h"
+
+1518744112 c:\users\loukaswhatdup\desktop\di.uoa\2nd_year\c++\ergasiamathimatos\nonaccessiblesquare.h
+	"Square.h"
+
+1518800724 c:\users\loukaswhatdup\desktop\di.uoa\2nd_year\c++\ergasiamathimatos\square.h
+
+1518800724 source:c:\users\loukaswhatdup\desktop\di.uoa\2nd_year\c++\ergasiamathimatos\square.cpp
+	"Square.h"
+
+1518829914 c:\users\loukaswhatdup\desktop\di.uoa\2nd_year\c++\ergasiamathimatos\living.h
+	<iostream>
+	<string>
+	"Inventory.h"
+	"Item.h"
+
+1518777431 c:\users\loukaswhatdup\desktop\di.uoa\2nd_year\c++\ergasiamathimatos\inventory.h
+	<iostream>
+	<string>
+	<vector>
+	"Item.h"
+	"Spell.h"
+
+1518803044 source:c:\users\loukaswhatdup\desktop\di.uoa\2nd_year\c++\ergasiamathimatos\market.cpp
+	<iostream>
+	<vector>
+	"Market.h"
+	"Spell.h"
+	"Item.h"
+
+1518733608 c:\users\loukaswhatdup\desktop\di.uoa\2nd_year\c++\ergasiamathimatos\market.h
+	<iostream>
+	<vector>
+	"Item.h"
+	"Spell.h"
+
+1518744194 source:c:\users\loukaswhatdup\desktop\di.uoa\2nd_year\c++\ergasiamathimatos\commonsquare.cpp
+	"CommonSquare.h"
+	"Square.h"
+
+1518744299 c:\users\loukaswhatdup\desktop\di.uoa\2nd_year\c++\ergasiamathimatos\commonsquare.h
+	"Square.h"
+
+1518800819 source:c:\users\loukaswhatdup\desktop\di.uoa\2nd_year\c++\ergasiamathimatos\grid.cpp
+	"Grid.h"
+	<ctime>
+	<iostream>
+	<cstdlib>
+	"Square.h"
+	"CommonSquare.h"
+	"MarketSquare.h"
+	"nonAccessibleSquare.h"
+
+1518798221 c:\users\loukaswhatdup\desktop\di.uoa\2nd_year\c++\ergasiamathimatos\grid.h
+	"Square.h"
+	"CommonSquare.h"
+	"MarketSquare.h"
+	"nonAccessibleSquare.h"
+
+1518824246 c:\users\loukaswhatdup\desktop\di.uoa\2nd_year\c++\ergasiamathimatos\marketsquare.h
+	"Living.h"
+	"Market.h"
+	"Square.h"
+
+1518829892 source:c:\users\loukaswhatdup\desktop\di.uoa\2nd_year\c++\ergasiamathimatos\marketsquare.cpp
+	"MarketSquare.h"
+	"Market.h"
+	"Square.h"
+	<iostream>
+
