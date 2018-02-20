@@ -1,12 +1,84 @@
 #include <iostream>
+#include <string>
 #include <vector>
+#include <fstream>
 #include "Market.h"
 #include "Spell.h"
 #include "Item.h"
 
 using namespace std;
 
-Market::Market(){}
+/* The Ctor of the class Market that reads from a file the Items that will be available for the Heros to buy */
+Market::Market(ifstream& inFile)
+{
+    // For the creation of the Market we've decided to create a File with 20 Items totally, 5 for each subclass and put them
+    // to the vectors in the Ctor. The items in the .txt are in order by four(Weapon, Armor, Spell, Potion and again)
+
+    string w_nm;                // Temporary variables for weapons, spells, armors and potions
+    int w_pr;
+    int w_mlvl;
+    int w_dmg;
+    string w_hd_temp;
+    bool w_hd;
+    string s_nm;
+    string s_tp;
+    int s_pr;
+    int s_mlvl;
+    int s_dmg;
+    int s_manr;
+    string a_nm;
+    int a_pr;
+    int a_mlvl;
+    int a_def;
+    string p_nm;
+    int p_pr;
+    int p_mlvl;
+    string p_tp;
+    int p_pow;
+
+    if(inFile.is_open())
+    {
+        for(int i = 0; i < 20; i++)
+        {
+            cout << "1";
+            inFile >> w_nm
+                   >> w_pr
+                   >> w_mlvl
+                   >> w_dmg
+                   >> w_hd_temp;
+cout << "2";
+                   if(w_hd_temp == "ONE")
+                        w_hd = true;
+cout << "3";
+                   addWeapon(w_nm, w_pr, w_mlvl, w_dmg, w_hd);
+
+cout << "4";
+            inFile >> s_nm
+                   >> s_tp
+                   >> s_pr
+                   >> s_mlvl
+                   >> s_dmg
+                   >> s_manr;
+
+                   addSpell(s_nm, s_tp, s_pr, s_mlvl, s_dmg, s_manr);
+cout << "5";
+            inFile >> a_nm
+                   >> a_pr
+                   >> a_mlvl
+                   >> a_def;
+
+                   addArmor(a_nm, a_pr, a_mlvl, a_def);
+cout << "6";
+            inFile >> p_nm
+                   >> p_pr
+                   >> p_mlvl
+                   >> p_tp
+                   >> p_pow;
+
+                   addPotion(p_nm, p_pr, p_mlvl, p_tp, p_pow);cout << "1";
+        }
+    }
+}
 
 /** Access spells
  * returns The current value of spells
@@ -27,6 +99,31 @@ Market::Market(){}
  * returns The current value of potions
  */
  vector<Potion> Market::getPotions() { return potions; }
+
+/* Function to add Weapon from the .txt file to the Market's Vectors */
+void Market::addWeapon(string nm, int pr, int mlvl, int dmg, bool hd)
+{
+    Weapon* newWeapon = new Weapon(nm, pr, mlvl, dmg, hd);
+    this->weapons.push_back(*newWeapon);
+}
+/* Function to add Weapon from the .txt file to the Market's Vectors */
+void Market::addSpell(string nm, string tp, int pr, int mlvl, int dmg, int manr)
+{
+    Spell* newSpell = new Spell(nm, tp, pr, mlvl, dmg, manr);
+    this->spells.push_back(*newSpell);
+}
+/* Function to add Weapon from the .txt file to the Market's Vectors */
+void Market::addArmor(string nm, int pr, int mlvl, int def)
+{
+    Armor* newArmor = new Armor(nm, pr, mlvl, def);
+    this->armors.push_back(*newArmor);
+}
+/* Function to add Weapon from the .txt file to the Market's Vectors */
+void Market::addPotion(string nm, int pr, int mlvl, string tp, int pow)
+{
+    Potion* newPotion = new Potion(nm, pr, mlvl, tp, pow);
+    this->potions.push_back(*newPotion);
+}
 
  void Market::print_spells()
 {

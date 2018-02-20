@@ -1,0 +1,16 @@
+WeaponI 100 3 90 One
+SpellI  Fire 40 50 80 60
+ArmorI 80 25 69
+PotionI 65 95 Qifsha 50
+WeaponII 100 3 90 One
+SpellII  Fire 40 50 80 60
+ArmorII 80 25 69
+PotionII 65 95 Qifsha 50
+WeaponIII 100 3 90 One
+SpellIII  Fire 40 50 80 60
+ArmorIII 80 25 69
+PotionIII 65 95 Qifsha 50
+WeaponIIII 100 3 90 One
+SpellIIII  Fire 40 50 80 60
+ArmorIIII 80 25 69
+PotionIIII 65 95 Qifsha 50

@@ -6,3 +6,5 @@ CommonSquare::CommonSquare(int givenX, int givenY):  Square(SQUARE_TYPE_COMMON, 
 
 CommonSquare::~CommonSquare()
 {}
+
+void CommonSquare::displayMenu(Hero*){}

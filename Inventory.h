@@ -26,7 +26,7 @@ public:
 	void add_potion(Potion &pot);
 
 	//Removes the n_th item
-	void remove_spell(int no);  
+	void remove_spell(int no);
 	void remove_weapon(int no);
 	void remove_armor(int no);
 	void remove_potion(int no);

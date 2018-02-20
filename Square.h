@@ -1,5 +1,7 @@
 #ifndef SQUARE_H
 #define SQUARE_H
+#include "Living.h"
+
 
 const int SQUARE_TYPE_MARKET = 1;
 const int SQUARE_TYPE_NON_ACCESSIBLE = 2;
@@ -12,12 +14,13 @@ class Square
     public:
         Square();
         Square(int, int, int);
-        ~Square();
+        virtual  ~Square();
         int getX() const;
         void setX(int givenX);
         int getY() const;
         void setY(int givenY);
         int getSquareType() const;
+        virtual void displayMenu(Hero*) = 0;
     private:
         int squareType;
         int x;

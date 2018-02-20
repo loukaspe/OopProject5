@@ -3,6 +3,7 @@
 
 
 #include <iostream>
+#include <fstream>
 #include <vector>
 #include "Item.h"
 #include "Spell.h"
@@ -12,7 +13,7 @@ using namespace std;
 class Market
 {
     public:
-        Market();
+        Market(ifstream& inFile);
         vector<Spell> getSpells();
         vector<Weapon> getWeapons();
         vector<Armor> getArmors();
@@ -22,6 +23,10 @@ class Market
         void print_spells();
         void print_potions();
         void print_all();
+        void addWeapon(string nm, int pr, int mlvl, int dmg, bool hd);
+        void addSpell(string nm, string tp, int pr, int mlvl, int dmg, int manr);
+        void addArmor(string nm, int pr, int mlvl, int def);
+        void addPotion(string nm, int pr, int mlvl, string tp, int pow);
 
     private:
         vector<Spell> spells;

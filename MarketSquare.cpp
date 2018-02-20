@@ -14,9 +14,9 @@ MarketSquare::~MarketSquare(){}
 /*
  * Function to show the menu of the Market when the player is accessing a square market
  */
-void MarketSquare::marketMenu(Hero* myHero)
+void MarketSquare::displayMenu(Hero* myHero)
 {
-    cout << "Welcome to the Market. How can we help you?" << endl;
+    cout << "Welcome to the market. How can we help you?" << endl;
 
     int option = -1;
 
@@ -71,13 +71,13 @@ void MarketSquare::marketMenu(Hero* myHero)
         }
 
         if(optionOne != 'w' || optionOne != 'W')
-            market.print_weapons();
+            market->print_weapons();
         else if(optionOne != 's' || optionOne != 'S')
-            market.print_spells();
+            market->print_spells();
         else if(optionOne != 'a' || optionOne != 'A')
-            market.print_spells();
+            market->print_spells();
         else if(optionOne != 'p' || optionOne != 'P')
-            market.print_spells();
+            market->print_spells();
         else if(optionOne != 'r' || optionOne != 'R' )
             return;
         cout << "Choose the number of the list that you want" << endl;
@@ -86,40 +86,40 @@ void MarketSquare::marketMenu(Hero* myHero)
 
         if(optionOne != 'w' || optionOne != 'W')
         {
-           if(myHero->get_money() >= market.getWeapons().at(optionTwo - 1).get_price())
+           if(myHero->get_money() >= market->getWeapons().at(optionTwo - 1).get_price())
            {
-               myHero->subMoney(market.getWeapons().at(optionTwo - 1).get_price());
+               myHero->subMoney(market->getWeapons().at(optionTwo - 1).get_price());
                cout << "Weapon #" << optionTwo << " bought" << endl;
-               myHero->getInventory()->add_weapon(market.getWeapons().at(optionTwo - 1));
+               myHero->getInventory()->add_weapon(market->getWeapons().at(optionTwo - 1));
            }
         }
         else if(optionOne != 's' || optionOne != 'S')
         {
-            if(myHero->get_money() >= market.getSpells().at(optionTwo - 1).get_price())
+            if(myHero->get_money() >= market->getSpells().at(optionTwo - 1).get_price())
             {
-                myHero->subMoney(market.getSpells().at(optionTwo - 1).get_price());
+                myHero->subMoney(market->getSpells().at(optionTwo - 1).get_price());
                 cout << "Spell #" << optionTwo << " bought" << endl;
-                myHero->getInventory()->add_spell(market.getSpells().at(optionTwo - 1));
+                myHero->getInventory()->add_spell(market->getSpells().at(optionTwo - 1));
             }
         }
 
         else if(optionOne != 'a' || optionOne != 'A')
         {
-            if(myHero->get_money() >= market.getArmors().at(optionTwo - 1).get_price())
+            if(myHero->get_money() >= market->getArmors().at(optionTwo - 1).get_price())
             {
-                myHero->subMoney(market.getArmors().at(optionTwo - 1).get_price());
+                myHero->subMoney(market->getArmors().at(optionTwo - 1).get_price());
                 cout << "Armor #" << optionTwo << " bought" << endl;
-                myHero->getInventory()->add_armor(market.getArmors().at(optionTwo - 1));
+                myHero->getInventory()->add_armor(market->getArmors().at(optionTwo - 1));
             }
         }
 
         else if(optionOne != 'p' || optionOne != 'P')
         {
-            if(myHero->get_money() >= market.getPotions().at(optionTwo - 1).get_price())
+            if(myHero->get_money() >= market->getPotions().at(optionTwo - 1).get_price())
             {
-                myHero->subMoney(market.getPotions().at(optionTwo - 1).get_price());
+                myHero->subMoney(market->getPotions().at(optionTwo - 1).get_price());
                 cout << "Potion #" << optionTwo << " bought" << endl;
-                myHero->getInventory()->add_potion(market.getPotions().at(optionTwo - 1));
+                myHero->getInventory()->add_potion(market->getPotions().at(optionTwo - 1));
             }
         }
     }
