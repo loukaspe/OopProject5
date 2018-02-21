@@ -5,6 +5,8 @@
 #include <string>
 #include "Inventory.h"
 #include "Item.h"
+#include "Buff.h"
+#include "Buff_list.h"
 
 using namespace std;
 
@@ -37,8 +39,9 @@ protected:
 	int exp_req;
 	Armor* armor;
 	Weapon* weapon;
-	Inventory *herosInventory;  // Loukas
-
+	Buff_list buffs;
+public:
+	Inventory inv;
 public:
 	Hero(int h, int mag, int str, int dex, int agi) :Living(h)
 	{
@@ -51,8 +54,6 @@ public:
 		exp_req = 1000;
 		armor = NULL;
 		weapon = NULL;
-
-		herosInventory = new Inventory();
 	}
 	virtual void check_levelup() = 0;
 	int get_magicpower();
@@ -64,23 +65,22 @@ public:
 	int get_expreq();
 	void print_stats();
 
-	void sell_weapon(Inventory& inv,int no);
-	void sell_armor(Inventory& inv, int no);
-	void sell_potion(Inventory& inv, int no);
-	void sell_spell(Inventory& inv, int no);
+	/*void sell_weapon(int no);
+	void sell_armor(int no);
+	void sell_potion(int no);
+	void sell_spell(int no);
 	void sell_equipedweapon();
-	void sell_equipedarmor();
+	void sell_equipedarmor();*/
 
-	void equip_weapon(Inventory& inv, int no);
-	void equip_armor(Inventory& inv, int no);
+	void equip_weapon(int no);
+	void equip_armor(int no);
 
-	Inventory* getInventory() const;    // Loukas
-	void addMoney(int);                 // Loukas
-	void subMoney(int);                 // Loukas
-	void tossArmor();                   // Loukas
-	void tossWeapon();                  // Loukas
-	Armor* getEquippedArmor() const;    // Loukas
-	Weapon* getEquippedWeapon() const;  // Loukas
+	void addMoney(int mon);
+	void subMoney(int mon);
+	void tossArmor();
+	void tossWeapon();
+	Armor* getEquippedArmor();
+	Weapon* getEquippedWeapon();
 };
 
 class Warrior :public Hero

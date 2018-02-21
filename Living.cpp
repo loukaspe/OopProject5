@@ -2,6 +2,7 @@
 #include <string>
 #include "Living.h"
 
+
 using namespace std;
 
 /*Living functions*/
@@ -48,7 +49,7 @@ int Hero::get_money() { return money; }
 int Hero::get_experience() { return experience; }
 int Hero::get_expreq() { return exp_req; }
 
-void Hero::equip_weapon(Inventory& inv, int no) // h dikia sou kai apo katw ekana cpy pste kai eftiaksa thn dikia moy
+void Hero::equip_weapon(int no)
 {
 	if (inv.weapon_list.size() >= no)
 	{
@@ -74,7 +75,7 @@ void Hero::equip_weapon(Inventory& inv, int no) // h dikia sou kai apo katw ekan
 	}
 }
 
-void Hero::equip_armor(Inventory& inv, int no)
+void Hero::equip_armor(int no)
 {
 	if (inv.armor_list.size() >= no)
 	{
@@ -116,7 +117,7 @@ void Hero::sell_equipedarmor()
 	cout << "Equiped armor sold" << endl;
 }
 
-void Hero::sell_weapon(Inventory& inv, int no)
+void Hero::sell_weapon(int no)
 {
 	if (inv.weapon_list.size() >= no)
 	{
@@ -130,7 +131,7 @@ void Hero::sell_weapon(Inventory& inv, int no)
 	}
 }
 
-void Hero::sell_armor(Inventory& inv, int no)
+void Hero::sell_armor(int no)
 {
 	if (inv.armor_list.size() >= no)
 	{
@@ -144,7 +145,7 @@ void Hero::sell_armor(Inventory& inv, int no)
 	}
 }
 
-void Hero::sell_potion(Inventory& inv, int no)
+void Hero::sell_potion(int no)
 {
 	if (inv.potion_list.size() >= no)
 	{
@@ -158,7 +159,7 @@ void Hero::sell_potion(Inventory& inv, int no)
 	}
 }
 
-void Hero::sell_spell(Inventory& inv, int no)
+void Hero::sell_spell(int no)
 {
 	if (inv.spell_list.size() >= no)
 	{
@@ -172,34 +173,23 @@ void Hero::sell_spell(Inventory& inv, int no)
 	}
 }*/
 
-/* Getter for the hero's Inventory */
-Inventory* Hero::getInventory() const { return this->herosInventory; }      // Loukas
+void Hero::addMoney(int mon) { money = money + mon; }
+void Hero::subMoney(int mon) { money = money - mon; }
 
-/* Function to add money to the hero's Money */                             // Loukas
-void Hero::addMoney(int value) { money += value; }
-
-/* Function to substract money from the hero's Money */                     // Loukas
-void Hero::subMoney(int value) { money -= value; }
-
-/* Function to delete the armor of the hero */                              // Loukas
 void Hero::tossArmor()
 {
-    delete armor;           // xreiazontai kai ta dyo?
-    armor = NULL;
+	delete armor;
+	armor = NULL;
 }
 
-/* Function to delete the weapon of the hero */                              // Loukas
 void Hero::tossWeapon()
 {
-    delete weapon;           // xreiazontai kai ta dyo?
-    weapon = NULL;
+	delete weapon;
+	weapon = NULL;
 }
 
-/* Getter for the hero's equipped armor */                                  // Loukas
-Armor* Hero::getEquippedArmor() const { return this->armor; }
-
-/* Getter for the hero's equipped weapon */                                 // Loukas
-Weapon* Hero::getEquippedWeapon() const { return this->weapon; }
+Armor* Hero::getEquippedArmor() { return this->armor; }
+Weapon* Hero::getEquippedWeapon() { return this->weapon; }
 
 /*Warrior functions*/
 void Warrior::check_levelup()

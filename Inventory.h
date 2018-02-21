@@ -11,7 +11,8 @@ using namespace std;
 
 class Inventory
 {
-public:
+	friend class Hero;
+protected:
 	vector<Spell> spell_list;
 	vector<Weapon> weapon_list;
 	vector<Armor> armor_list;
@@ -26,7 +27,7 @@ public:
 	void add_potion(Potion &pot);
 
 	//Removes the n_th item
-	void remove_spell(int no);
+	void remove_spell(int no);  
 	void remove_weapon(int no);
 	void remove_armor(int no);
 	void remove_potion(int no);
