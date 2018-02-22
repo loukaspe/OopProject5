@@ -10,7 +10,7 @@ class nonAccessibleSquare : public Square
     public:
         nonAccessibleSquare(int, int);
         ~nonAccessibleSquare();
-        void displayMenu(Hero*);
+        void displayMenu(Hero** myHeroes);
 
 };
 

@@ -10,7 +10,7 @@ class MarketSquare : public Square
     public:
         MarketSquare(int, int);
         ~MarketSquare();
-        void displayMenu(Hero*);
+        void displayMenu(Hero**);
         void buy(Hero*);
         void sell(Hero*);
         //static

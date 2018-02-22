@@ -14,37 +14,43 @@ MarketSquare::~MarketSquare(){}
 /*
  * Function to show the menu of the Market when the player is accessing a square market
  */
-void MarketSquare::displayMenu(Hero* myHero)
+void MarketSquare::displayMenu(Hero** myHeroes)
 {
-    cout << "Welcome to the market. How can we help you?" << endl;
-
     int option = -1;
 
-    while(option != 4)
+    for(int i = 0; i < 3; i++)
     {
-        showMarketOptions();
-        cin >> option;
-
-        while(option != 1 && option != 2 && option != 3 && option != 4)
+        if(myHeroes[i] != NULL)
         {
-            cout << "Wrong Option\nChoose Again:";
-            showMarketOptions();
-            cin >> option;
-        }
+            cout << "Welcome to the market. How can we help you?" << endl;
 
-        switch(option)
-        {
-            case 1:
-                buy(myHero);
-                break;
-            case 2:
-                sell(myHero);
-                break;
-            case 3:
-                myHero->inv.print_all();
-                break;
-            case 4:
-                return;
+            while(option != 4)
+            {
+                showMarketOptions();
+                cin >> option;
+
+                while(option != 1 && option != 2 && option != 3 && option != 4)
+                {
+                    cout << "Wrong Option\nChoose Again:";
+                    showMarketOptions();
+                    cin >> option;
+                }
+
+                switch(option)
+                {
+                    case 1:
+                        buy(myHeroes[i]);
+                        break;
+                    case 2:
+                        sell(myHeroes[i]);
+                        break;
+                    case 3:
+                        myHeroes[i]->inv.print_all();
+                        break;
+                    case 4:
+                        return;
+                }
+            }
         }
     }
 }
