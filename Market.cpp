@@ -40,19 +40,18 @@ Market::Market(ifstream& inFile)
     {
         for(int i = 0; i < 20; i++)
         {
-            cout << "1";
             inFile >> w_nm
                    >> w_pr
                    >> w_mlvl
                    >> w_dmg
                    >> w_hd_temp;
-cout << "2";
+
                    if(w_hd_temp == "ONE")
                         w_hd = true;
-cout << "3";
+
                    addWeapon(w_nm, w_pr, w_mlvl, w_dmg, w_hd);
 
-cout << "4";
+
             inFile >> s_nm
                    >> s_tp
                    >> s_pr
@@ -61,21 +60,21 @@ cout << "4";
                    >> s_manr;
 
                    addSpell(s_nm, s_tp, s_pr, s_mlvl, s_dmg, s_manr);
-cout << "5";
+
             inFile >> a_nm
                    >> a_pr
                    >> a_mlvl
                    >> a_def;
 
                    addArmor(a_nm, a_pr, a_mlvl, a_def);
-cout << "6";
+
             inFile >> p_nm
                    >> p_pr
                    >> p_mlvl
                    >> p_tp
                    >> p_pow;
 
-                   addPotion(p_nm, p_pr, p_mlvl, p_tp, p_pow);cout << "1";
+                   addPotion(p_nm, p_pr, p_mlvl, p_tp, p_pow);
         }
     }
 }

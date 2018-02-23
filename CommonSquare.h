@@ -5,7 +5,7 @@
 #include "Buff.h"
 #include "Buff_list.h"
 
-int BATTLE_POSSIBILITY = 50;
+const int BATTLE_POSSIBILITY = 50;
 
 class CommonSquare: public Square
 {
@@ -29,6 +29,7 @@ class CommonSquare: public Square
         bool heroes_all_dead(Hero* Heroes[3]);
         bool monsters_all_dead(Monster* Monsters[4]);
         void update_buffs(Hero**, Monster* Monsters[4]);
+        void herosRestore(Hero**);
 };
 
 #endif // COMMONSQUARE_H

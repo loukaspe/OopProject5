@@ -17,10 +17,11 @@ class Grid
     public:
         Grid(int x, int y);
         ~Grid();
-        void moveGrid();
+        bool moveGrid();
         int getDimX();
         int getDimY();
         void displayMap();
+        void displayMenu(Hero**);
     private:
         Square*** grid;
         Square* currentPosition;

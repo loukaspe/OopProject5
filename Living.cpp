@@ -17,7 +17,7 @@ int Living::get_level() { return lvl; }
 /*Hero functions*/
 void Hero::print_stats()
 {
-	cout << "Hero statistics:"<< endl;
+	cout << "\tHero statistics:"<< endl;
 	cout << "Health= " << health << endl;
 	cout << "Level= " << lvl << endl;
 	cout << "Magic power= " << magic_power << endl;
@@ -44,6 +44,8 @@ void Hero::print_stats()
 	{
 		cout << "No equiped armor" << endl;
 	}
+
+	cout << endl;
 }
 int Hero::get_magicpower() { return magic_power; }
 int Hero::get_strength() { return strength; }
@@ -139,7 +141,7 @@ void Hero::equip_armor(int no)
 	}
 }
 
-void Hero::sell_equipedweapon()
+/*void Hero::sell_equipedweapon()
 {
 	money = +weapon->get_price()/2;
 	delete weapon;
@@ -209,7 +211,7 @@ void Hero::sell_spell(int no)
 	{
 		cout << "INVALID INPUT" << endl;
 	}
-}
+}*/
 
 void Hero::addMoney(int mon) { money = money + mon; }
 void Hero::subMoney(int mon) { money = money - mon; }
@@ -438,12 +440,12 @@ void Monster::set_defence(int def) { defence = def; }
 void Monster::set_agility(int agi) { agility = agi; }
 void Monster::print_stats()
 {
-	cout << "Monster statistics: " << endl;
+	cout << "\tMonster statistics: " << endl;
 	cout << "Health= " << health << endl;
 	cout << "Level= " << lvl << endl;
 	cout << "Damage= " << damage << endl;
 	cout << "Defence= " << defence << endl;
-	cout << "Agility= " << agility << endl;
+	cout << "Agility= " << agility << endl << endl;
 }
 
 

@@ -71,8 +71,9 @@ int Grid::getDimY()
 }
 
 /* Function to move the hero onto the Grid */
-void Grid::moveGrid()
+bool Grid::moveGrid()
 {
+    bool didItMove = false;         // Loukas - variable to return whether the Hero moved or not in the grid
     char direction;
     cout << "Please choose the direction:\n(w: Up, a: Left, s: Down, d: Right" << endl;
     cin >> direction;
@@ -91,6 +92,7 @@ void Grid::moveGrid()
                 {
                     currentPosition->setY(currentPosition->getY() - 1);
                     currentPosition = grid[currentPosition->getX()][currentPosition->getY()];
+                    didItMove = true;
                 }
                 else
                 {
@@ -111,6 +113,7 @@ void Grid::moveGrid()
                 {
                     currentPosition->setX(currentPosition->getX() - 1);
                     currentPosition = grid[currentPosition->getX()][currentPosition->getY()];
+                    didItMove = true;
                 }
                 else
                 {
@@ -131,6 +134,7 @@ void Grid::moveGrid()
                 {
                     currentPosition->setY(currentPosition->getY() + 1);
                     currentPosition = grid[currentPosition->getX()][currentPosition->getY()];
+                    didItMove = true;
                 }
                 else
                 {
@@ -151,6 +155,7 @@ void Grid::moveGrid()
                 {
                     currentPosition->setX(currentPosition->getX() + 1);
                     currentPosition = grid[currentPosition->getX()][currentPosition->getY()];
+                    didItMove = true;
                 }
                 else
                 {
@@ -163,6 +168,9 @@ void Grid::moveGrid()
             }
 
             break;
+
+        cout << "----" << didItMove;
+        return didItMove;
 
     }
 }
@@ -202,3 +210,10 @@ void Grid::moveGrid()
        cout << "\t\tMAP" << endl << "H: Hero is here" << endl << "M: This is a Market Square" << endl << "N-A: This is a Non Accessible Square" << endl
             <<"C: This is a Common Square" << endl << endl;
    }
+
+/* Function to call current position's displayMenu through the grid */
+void Grid::displayMenu(Hero** myHeroes)
+{
+    currentPosition->displayMenu(myHeroes);
+}
+

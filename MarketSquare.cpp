@@ -11,6 +11,20 @@ MarketSquare::MarketSquare(int givenX, int givenY):Square(SQUARE_TYPE_MARKET, gi
 
 MarketSquare::~MarketSquare(){}
 
+Market* MarketSquare::market = NULL;
+
+/* Function for the static Market of the Squares to be initialised */
+Market* MarketSquare::getMarket(ifstream &inFile)
+{
+    if(market == NULL)
+    {
+        market = new Market(inFile);
+    }
+
+    return market;
+}
+
+
 /*
  * Function to show the menu of the Market when the player is accessing a square market
  */
@@ -22,7 +36,7 @@ void MarketSquare::displayMenu(Hero** myHeroes)
     {
         if(myHeroes[i] != NULL)
         {
-            cout << "Welcome to the market. How can we help you?" << endl;
+            cout << "Welcome to the market Hero " << i << ". How can we help you?" << endl;
 
             while(option != 4)
             {
@@ -48,7 +62,7 @@ void MarketSquare::displayMenu(Hero** myHeroes)
                         myHeroes[i]->inv.print_all();
                         break;
                     case 4:
-                        return;
+                        break;
                 }
             }
         }
@@ -60,37 +74,36 @@ void MarketSquare::displayMenu(Hero** myHeroes)
  */
  void MarketSquare::buy(Hero* myHero)
  {
-    char optionOne = 'r';
+    unsigned int optionOne = 0;
     unsigned int optionTwo;
 
-    while(optionOne != 'e' && optionOne != 'E')
+    while(optionOne != 5)
     {
         showBuyOptions();
         cin >> optionOne;
 
-        while(optionOne != 'w' && optionOne != 'W' && optionOne != 's' && optionOne != 'S' && optionOne != 'A' && optionOne != 'a' &&
-              optionOne != 'p' && optionOne != 'P' && optionOne != 'r' && optionOne != 'R')
+        while(optionOne != 1 && optionOne != 2 && optionOne != 3 && optionOne != 4 && optionOne != 5)
         {
             cout << "Wrong Choice\nChoose again:\n";
             showBuyOptions();
             cin >> optionOne;
         }
 
-        if(optionOne != 'w' || optionOne != 'W')
+        if(optionOne == 1)
             market->print_weapons();
-        else if(optionOne != 's' || optionOne != 'S')
+        else if(optionOne == 2)
             market->print_spells();
-        else if(optionOne != 'a' || optionOne != 'A')
-            market->print_spells();
-        else if(optionOne != 'p' || optionOne != 'P')
-            market->print_spells();
-        else if(optionOne != 'r' || optionOne != 'R' )
+        else if(optionOne == 3)
+            market->print_armors();
+        else if(optionOne == 4)
+            market->print_potions();
+        else if(optionOne == 5)
             return;
         cout << "Choose the number of the list that you want" << endl;
 
         cin >> optionTwo;
 
-        if(optionOne != 'w' || optionOne != 'W')
+        if(optionOne == 1)
         {
            if(myHero->get_money() >= market->getWeapons().at(optionTwo - 1).get_price())
            {
@@ -110,7 +123,7 @@ void MarketSquare::displayMenu(Hero** myHeroes)
                 cout << "Your Hero doesn't have enough money for this purchase" << endl;
            }
         }
-        else if(optionOne != 's' || optionOne != 'S')
+        else if(optionOne == 2)
         {
             if(myHero->get_money() >= market->getSpells().at(optionTwo - 1).get_price())
             {
@@ -131,7 +144,7 @@ void MarketSquare::displayMenu(Hero** myHeroes)
             }
         }
 
-        else if(optionOne != 'a' || optionOne != 'A')
+        else if(optionOne == 3)
         {
             if(myHero->get_money() >= market->getArmors().at(optionTwo - 1).get_price())
             {
@@ -152,7 +165,7 @@ void MarketSquare::displayMenu(Hero** myHeroes)
             }
         }
 
-        else if(optionOne != 'p' || optionOne != 'P')
+        else if(optionOne == 4)
         {
             if(myHero->get_money() >= market->getPotions().at(optionTwo - 1).get_price())
             {
@@ -171,6 +184,10 @@ void MarketSquare::displayMenu(Hero** myHeroes)
             {
                 cout << "Your Hero doesn't have enough money for this purchase" << endl;
             }
+        }
+        else if(optionOne == 5)
+        {
+            return;
         }
     }
  }
@@ -203,15 +220,29 @@ void MarketSquare::displayMenu(Hero** myHeroes)
         }
         else if(option == 2)
         {
-            myHero->addMoney(myHero->getEquippedArmor()->get_price()/2);
-            myHero->tossArmor();
-            cout << "Equiped armor sold" << endl;
+            if(myHero->getEquippedArmor() != NULL)
+            {
+                myHero->addMoney(myHero->getEquippedArmor()->get_price()/2);
+                myHero->tossArmor();
+                cout << "Equiped armor sold" << endl;
+            }
+            else
+            {
+                cout << "You don't have an equipped Armor" << endl;     // Loukas
+            }
         }
         else if(option == 3)
         {
-            myHero->addMoney(myHero->getEquippedWeapon()->get_price()/2);
-            myHero->tossWeapon();
-            cout << "Equiped weapon sold" << endl;
+            if(myHero->getEquippedWeapon() != NULL)
+            {
+                myHero->addMoney(myHero->getEquippedWeapon()->get_price()/2);
+                myHero->tossWeapon();
+                cout << "Equiped weapon sold" << endl;
+            }
+            else
+            {
+                cout << "You don't have an equipped Weapon" << endl;    // Loukas
+            }
         }
         else if(option == 4)
         {
@@ -290,17 +321,17 @@ void showMarketOptions()
     cout << "Buy (Press 1)" << endl;
     cout << "Sell (Press 2)" << endl;
     cout << "Show Inventory (Press 3)" << endl;
-    cout << "Continue your journey (Press 4)" << endl;
+    cout << "Continue your journey (Press 4)" << endl << endl;
 }
 
 void showBuyOptions()
 {
         cout << "Please choose your option:" << endl;
-        cout << "Buy Spell (Press s)" << endl;
-        cout << "Buy Weapon (Press w)" << endl;
-        cout << "Buy Armor (Press a)" << endl;
-        cout << "Buy Potion (Press p)" << endl;
-        cout << "Return to the Market Menu (Press r)" << endl;
+        cout << "Buy Weapon (Press 1)" << endl;
+        cout << "Buy Spell (Press 2)" << endl;
+        cout << "Buy Armor (Press 3)" << endl;
+        cout << "Buy Potion (Press 4)" << endl;
+        cout << "Return to the Market Menu (Press 5)" << endl << endl;
 }
 
 void showSellOptions()
@@ -313,7 +344,7 @@ void showSellOptions()
     cout << "Sell Weapon (Press 5)" << endl;
     cout << "Sell Armor (Press 6)" << endl;
     cout << "Sell Potion (Press 7)" << endl;
-    cout << "Return to the Market Menu (Press 8)" << endl;
+    cout << "Return to the Market Menu (Press 8)" << endl << endl;
 }
 
 

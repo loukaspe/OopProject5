@@ -39,12 +39,15 @@ void CommonSquare::battle(Hero** myHeroes)
     {
         battleHerosTurn(myHeroes, Monsters);
         battleMonstersTurn(myHeroes, Monsters);
+        herosRestore(myHeroes);
     }
 
     if(monsters_all_dead(Monsters))
         heroesWon = true;
     else
         heroesWon = false;
+
+    cout << heroesWon;
 
     afterBattle(myHeroes, heroesWon, winExp);
 }
@@ -57,8 +60,9 @@ void CommonSquare::battleHerosTurn(Hero** myHeroes, Monster* Monsters[4])
 
     for(int i = 0; i < 3; i++)
     {
-        if(myHeroes[i] != NULL && myHeroes[i]->get_chealth() > 0)
+        if(myHeroes[i] != NULL && myHeroes[i]->get_chealth() > 0 && !monsters_all_dead(Monsters))   // Loukas
         {
+            cout << "\tHero " << i << " Options:" << endl;                                          // Loukas
             showBattleOptions();
             cin >> option;
 
@@ -84,14 +88,21 @@ void CommonSquare::battleHerosTurn(Hero** myHeroes, Monster* Monsters[4])
             update_buffs(myHeroes, Monsters);
         }
     }
+}
 
+/* Function for Hero's Restore after each round */
+void CommonSquare::herosRestore(Hero** myHeroes)        // Loukas
+{
     for(int i = 0; i < 3; i++)
     {
-        if(myHeroes[i]->get_chealth() != 0)
+        if(myHeroes != NULL)
         {
-            myHeroes[i]->restore_health(10);
-            myHeroes[i]->restore_magicpower(10);
-            myHeroes[i]->print_stats();
+            if(myHeroes[i]->get_chealth() != 0)
+            {
+                myHeroes[i]->restore_health(10);
+                myHeroes[i]->restore_magicpower(10);
+                myHeroes[i]->print_stats();
+            }
         }
     }
 }
@@ -124,33 +135,40 @@ void CommonSquare::battleMonstersTurn(Hero** myHeroes, Monster* Monsters[4])
 void CommonSquare::noBattle(Hero** myHeroes)
 {
     cout << "There will be no battle in this square" << endl;
-    int option;
+    int option = 6;
 
     for(int i = 0; i < 3; i++)
     {
-        showNoBattleOptions();
-        cin >> option;
-
-        while(option != 1 && option != 2 && option != 3 &&
-              option != 4 && option != 5)           // esbhsa option 6
+        if(myHeroes[i] != NULL)
         {
-            cout << "Wrong Option\n";
-            showNoBattleOptions();
-            cin >> option;
-        }
+            cout << "\tHero " << i << " Options:" << endl;
+            while(option != 6)
+            {
+                showNoBattleOptions();
+                cin >> option;
 
-        if(option == 1)
-            myHeroes[i]->inv.print_all();
-        else if(option == 2)
-            myHeroes[i]->equip_weapon();
-        else if(option == 3)
-            myHeroes[i]->equip_armor();
-        else if(option == 4)
-            use(myHeroes[i]);
-        else if(option == 5)
-            myHeroes[i]->print_stats();
-//        else if(option == 6)
-////            myGrid->displayMap();
+                while(option != 1 && option != 2 && option != 3 &&
+                      option != 4 && option != 5 && option != 6)           // esbhsa option 6
+                {
+                    cout << "Wrong Option\n";
+                    showNoBattleOptions();
+                    cin >> option;
+                }
+
+                if(option == 1)
+                    myHeroes[i]->inv.print_all();
+                else if(option == 2)
+                    myHeroes[i]->equip_weapon();
+                else if(option == 3)
+                    myHeroes[i]->equip_armor();
+                else if(option == 4)
+                    use(myHeroes[i]);
+                else if(option == 5)
+                    myHeroes[i]->print_stats();
+                else if(option == 6)
+                    return;
+            }
+        }
     }
 }
 
@@ -162,8 +180,8 @@ void CommonSquare::showNoBattleOptions()
     cout << "Change Equipped Weapon (Press 2)" << endl;
     cout << "Change Equipped Armor (Press 3)" << endl;
     cout << "Use a Potion (Press 4)" << endl;
-    cout << "Show Hero's Information (Press 5)" << endl;
-    //cout << "See the Map (Press 6)" << endl;
+    cout << "Show Hero's Information (Press 5)" << endl << endl;
+    cout << "Continue your journey (Press 6)" << endl;
 }
 
 /* Function to show a menu to the user to choose what to do in the battle */
@@ -174,24 +192,28 @@ void CommonSquare::showBattleOptions()
     cout << "Cast Spell (Press 2)" << endl;
     cout << "Use a Potion (Press 3)" << endl;
     cout << "Change Equipped Weapon (Press 4)" << endl;
-    cout << "Change Equipped Armor (Press 5)" << endl;
+    cout << "Change Equipped Armor (Press 5)" << endl << endl;
 }
 /* Function to create the monsters in the battle */
 void CommonSquare::fill_monsters(Monster* Monsters[4],int lvl)
 {
+    int counter = 0;    //Loukas
 	int tmp;
 	tmp = rand() % 3;
 	if (tmp == 0)
 	{
 		Monsters[0] = new Dragon(lvl + rand() % 3 - 1);
+		counter++;
 	}
 	else if (tmp == 1)
 	{
 		Monsters[0] = new Exoskeleton(lvl + rand() % 3 - 1);
+		counter++;
 	}
 	else
 	{
 		Monsters[0] = new Spirit(lvl + rand() % 3 - 1);
+		counter++;
 	}
 	for (int i = 1; i < 4; i++)
 	{
@@ -206,18 +228,21 @@ void CommonSquare::fill_monsters(Monster* Monsters[4],int lvl)
 			if (tmp == 0)
 			{
 				Monsters[i] = new Dragon(lvl + rand() % 3 - 1);
+				counter++;
 			}
 			else if (tmp == 1)
 			{
 				Monsters[i] = new Exoskeleton(lvl + rand() % 3 - 1);
+				counter++;
 			}
 			else
 			{
 				Monsters[i] = new Spirit(lvl + rand() % 3 - 1);
+				counter++;
 			}
 		}
 	}
-	cout << "Monsters spawned" << endl;
+	cout << counter << " Monsters spawned" << endl;     // Loukas
 }
 
 /* Function to print out what monsters exist in the battle field for the user to choose where to attack */
@@ -247,7 +272,8 @@ void CommonSquare::attack(Hero* myHero, Monster* Monsters[4])
 {
     int damage;
     int mchoice;
-    damage = (myHero->getEquippedWeapon()->get_damage() + myHero->get_strength()/4)*myHero->buffs.get_all_dmg();
+    if(myHero->getEquippedWeapon() != NULL)     //Loukas
+        damage = (myHero->getEquippedWeapon()->get_damage() + myHero->get_strength()/4)*myHero->buffs.get_all_dmg();
     print_monsters_in_battle(Monsters);
     cout << "Select the monster you want to attack: " << endl;
     cin >> mchoice;
