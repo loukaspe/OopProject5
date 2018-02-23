@@ -35,3 +35,18 @@ void Spell::print_info()
 	cout << "Damage: " << damage << endl;
 	cout << "Mana required: " << mana_req << endl;
 }
+
+FireSpell::FireSpell(string nm, int pr, int mlvl, int dmg, int manr): Spell(nm, pr, mlvl, dmg, manr)
+{
+    Spell::type = "Fire";
+}
+
+LightningSpell::LightningSpell(string nm, int pr, int mlvl, int dmg, int manr): Spell(nm, pr, mlvl, dmg, manr)
+{
+    Spell::type = "Lightning";
+}
+
+IceSpell::IceSpell(string nm, int pr, int mlvl, int dmg, int manr): Spell(nm, pr, mlvl, dmg, manr)
+{
+    Spell::type = "Ice";
+}

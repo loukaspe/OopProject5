@@ -94,18 +94,40 @@ void MarketSquare::displayMenu(Hero** myHeroes)
         {
            if(myHero->get_money() >= market->getWeapons().at(optionTwo - 1).get_price())
            {
-               myHero->subMoney(market->getWeapons().at(optionTwo - 1).get_price());
-               cout << "Weapon #" << optionTwo << " bought" << endl;
-               myHero->inv.add_weapon(market->getWeapons().at(optionTwo - 1));
+               if(myHero->get_level() >= market->getWeapons().at(optionTwo - 1).get_minlvl())
+               {
+                    myHero->subMoney(market->getWeapons().at(optionTwo - 1).get_price());
+                    cout << "Weapon #" << optionTwo << " bought" << endl;
+                    myHero->inv.add_weapon(market->getWeapons().at(optionTwo - 1));
+               }
+               else
+                {
+                    cout << "Your Hero doesn't have the Level required for this purchase" << endl;
+                }
+           }
+           else
+           {
+                cout << "Your Hero doesn't have enough money for this purchase" << endl;
            }
         }
         else if(optionOne != 's' || optionOne != 'S')
         {
             if(myHero->get_money() >= market->getSpells().at(optionTwo - 1).get_price())
             {
-                myHero->subMoney(market->getSpells().at(optionTwo - 1).get_price());
-                cout << "Spell #" << optionTwo << " bought" << endl;
-                myHero->inv.add_spell(market->getSpells().at(optionTwo - 1));
+                if(myHero->get_level() >=  market->getSpells().at(optionTwo - 1).get_minlvl())
+                {
+                    myHero->subMoney(market->getSpells().at(optionTwo - 1).get_price());
+                    cout << "Spell #" << optionTwo << " bought" << endl;
+                    myHero->inv.add_spell(market->getSpells().at(optionTwo - 1));
+                }
+                else
+                {
+                    cout << "Your Hero doesn't have the Level required for this purchase" << endl;
+                }
+            }
+            else
+            {
+                cout << "Your Hero doesn't have enough money for this purchase" << endl;
             }
         }
 
@@ -113,9 +135,20 @@ void MarketSquare::displayMenu(Hero** myHeroes)
         {
             if(myHero->get_money() >= market->getArmors().at(optionTwo - 1).get_price())
             {
-                myHero->subMoney(market->getArmors().at(optionTwo - 1).get_price());
-                cout << "Armor #" << optionTwo << " bought" << endl;
-                myHero->inv.add_armor(market->getArmors().at(optionTwo - 1));
+                if(myHero->get_level() >= market->getArmors().at(optionTwo - 1).get_minlvl())
+                {
+                    myHero->subMoney(market->getArmors().at(optionTwo - 1).get_price());
+                    cout << "Armor #" << optionTwo << " bought" << endl;
+                    myHero->inv.add_armor(market->getArmors().at(optionTwo - 1));
+                }
+                else
+                {
+                    cout << "Your Hero doesn't have the Level required for this purchase" << endl;
+                }
+            }
+            else
+            {
+                cout << "Your Hero doesn't have enough money for this purchase" << endl;
             }
         }
 
@@ -123,9 +156,20 @@ void MarketSquare::displayMenu(Hero** myHeroes)
         {
             if(myHero->get_money() >= market->getPotions().at(optionTwo - 1).get_price())
             {
-                myHero->subMoney(market->getPotions().at(optionTwo - 1).get_price());
-                cout << "Potion #" << optionTwo << " bought" << endl;
-                myHero->inv.add_potion(market->getPotions().at(optionTwo - 1));
+                if(myHero->get_level() >= market->getPotions().at(optionTwo - 1).get_minlvl())
+                {
+                    myHero->subMoney(market->getPotions().at(optionTwo - 1).get_price());
+                    cout << "Potion #" << optionTwo << " bought" << endl;
+                    myHero->inv.add_potion(market->getPotions().at(optionTwo - 1));
+                }
+                else
+                {
+                    cout << "Your Hero doesn't have the Level required for this purchase" << endl;
+                }
+            }
+            else
+            {
+                cout << "Your Hero doesn't have enough money for this purchase" << endl;
             }
         }
     }
@@ -174,9 +218,9 @@ void MarketSquare::displayMenu(Hero** myHeroes)
             cout << "Type the Spell number you want to sell" << endl;
             cin >> itemNo;
 
-            if (myHero->inv.spell_list.size() >= itemNo)
+            if (myHero->inv.get_spell_list_size() >= itemNo)
             {
-                myHero->addMoney(myHero->inv.spell_list[itemNo - 1].get_price() / 2);
+                myHero->addMoney(myHero->inv.get_spell_price(itemNo - 1)/ 2);
                 myHero->inv.remove_spell(itemNo);
                 cout << "Spell sold" << endl;
             }
@@ -190,9 +234,9 @@ void MarketSquare::displayMenu(Hero** myHeroes)
             cout << "Type the Weapon number you want to sell" << endl;
             cin >> itemNo;
 
-            if (myHero->inv.weapon_list.size() >= itemNo)
+            if (myHero->inv.get_weapon_list_size() >= itemNo)
             {
-                myHero->addMoney(myHero->inv.weapon_list[itemNo - 1].get_price() / 2);
+                myHero->addMoney(myHero->inv.get_weapon_price(itemNo - 1) / 2);
                 myHero->inv.remove_weapon(itemNo);
                 cout << "Weapon sold" << endl;
             }
@@ -206,9 +250,9 @@ void MarketSquare::displayMenu(Hero** myHeroes)
             cout << "Type the Armor number you want to sell" << endl;
             cin >> itemNo;
 
-            if (myHero->inv.armor_list.size() >= itemNo)
+            if (myHero->inv.get_armor_list_size() >= itemNo)
             {
-                myHero->addMoney(myHero->inv.armor_list[itemNo - 1].get_price() / 2);
+                myHero->addMoney(myHero->inv.get_armor_price(itemNo - 1) / 2);
                 myHero->inv.remove_armor(itemNo);
                 cout << "Armor sold" << endl;
             }
@@ -222,9 +266,9 @@ void MarketSquare::displayMenu(Hero** myHeroes)
             cout << "Type the Potion number you want to sell" << endl;
             cin >> itemNo;
 
-            if (myHero->inv.potion_list.size() >= itemNo)
+            if (myHero->inv.get_potion_list_size() >= itemNo)
             {
-                myHero->addMoney(myHero->inv.potion_list[itemNo - 1].get_price() / 2);
+                myHero->addMoney(myHero->inv.get_potion_price(itemNo - 1) / 2);
                 myHero->inv.remove_potion(itemNo);
                 cout << "Potion sold" << endl;
             }

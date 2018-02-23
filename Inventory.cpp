@@ -62,17 +62,17 @@ void Inventory::remove_potion(int no)
 	}
 }
 
-Weapon Inventory::get_weapon(int no) 
-{ 
-		if (weapon_list.size() >= no) 
-	{ 
-		return weapon_list[no - 1]; 
-	} 
-	else 
-	{ 
-			cout << "ERROR OUT OF BOUNDS WEAPON_LIST" << endl; 
+Weapon Inventory::get_weapon(int no)
+{
+		if (weapon_list.size() >= no)
+	{
+		return weapon_list[no - 1];
+	}
+	else
+	{
+			cout << "ERROR OUT OF BOUNDS WEAPON_LIST" << endl;
 			assert(0);
-	} 
+	}
 }
 
 Armor Inventory::get_armor(int no)
@@ -163,3 +163,8 @@ int Inventory::get_potion_power(int i) { return potion_list[i].get_power(); }
 int Inventory::get_spell_manareq(int i) { return spell_list[i].get_manareq(); }
 int Inventory::get_spell_damage(int i) { return spell_list[i].get_damage(); }
 string Inventory::get_spell_type(int i) { return spell_list[i].get_type(); }
+
+int Inventory::get_spell_price(int i) { return spell_list[i].get_price(); }     // Loukas
+int Inventory::get_weapon_price(int i) { return weapon_list[i].get_price(); }
+int Inventory::get_potion_price(int i) { return potion_list[i].get_price(); }
+int Inventory::get_armor_price(int i) { return armor_list[i].get_price(); }

@@ -17,7 +17,7 @@ class Grid
     public:
         Grid(int x, int y);
         ~Grid();
-        void moveGrid(char direction);
+        void moveGrid();
         int getDimX();
         int getDimY();
         void displayMap();

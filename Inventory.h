@@ -27,7 +27,7 @@ public:
 	void add_potion(Potion &pot);
 
 	//Removes the n_th item
-	void remove_spell(int no);  
+	void remove_spell(int no);
 	void remove_weapon(int no);
 	void remove_armor(int no);
 	void remove_potion(int no);
@@ -57,6 +57,11 @@ public:
 	int get_spell_manareq(int i);
 	int get_spell_damage(int i);
 	string get_spell_type(int i);
+
+	int get_spell_price(int i);     //Loukas
+	int get_weapon_price(int i);
+	int get_potion_price(int i);
+	int get_armor_price(int i);
 };
 
 #endif //INVENTORY

@@ -109,7 +109,15 @@ void Market::addWeapon(string nm, int pr, int mlvl, int dmg, bool hd)
 /* Function to add Weapon from the .txt file to the Market's Vectors */
 void Market::addSpell(string nm, string tp, int pr, int mlvl, int dmg, int manr)
 {
-    Spell* newSpell = new Spell(nm, tp, pr, mlvl, dmg, manr);
+    Spell* newSpell;
+
+    if(tp == "Fire")
+        newSpell = new FireSpell(nm, pr, mlvl, dmg, manr);
+    else if(tp == "Lightning")
+        newSpell = new LightningSpell(nm, pr, mlvl, dmg, manr);
+    else if(tp == "Ice")
+        newSpell = new IceSpell(nm, pr, mlvl, dmg, manr);
+    //Spell* newSpell = new Spell(nm, tp, pr, mlvl, dmg, manr);
     this->spells.push_back(*newSpell);
 }
 /* Function to add Weapon from the .txt file to the Market's Vectors */

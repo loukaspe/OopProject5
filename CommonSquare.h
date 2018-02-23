@@ -1,8 +1,9 @@
 #ifndef COMMONSQUARE_H
 #define COMMONSQUARE_H
-#include "Grid.h"
 #include "Square.h"
 #include "Living.h"
+#include "Buff.h"
+#include "Buff_list.h"
 
 int BATTLE_POSSIBILITY = 50;
 
@@ -14,16 +15,20 @@ class CommonSquare: public Square
         void displayMenu(Hero**);
         void showBattleOptions();
         void battle(Hero**);
-        void noBattle(Hero*, Grid*);
+        void noBattle(Hero**);
         void battleHerosTurn(Hero**, Monster* Monsters[4]);
-        void battleMonstersTurn();
+        void battleMonstersTurn(Hero**, Monster* Monsters[4]);
         void showNoBattleOptions();
         void fill_monsters(Monster* Monsters[4],int);
         void print_monsters_in_battle(Monster* monsters[4]);
-        void attack(Monster* monsters[4], Hero*);
+        void attack(Hero*, Monster* monsters[4]);
         void castSpell(Monster* monsters[4], Hero*);
         void use(Hero*);
-        void afterBattle(Hero** myHeroes);
+        void afterBattle(Hero**, bool, int);
+        int get_xp(Monster* Monsters[4]);
+        bool heroes_all_dead(Hero* Heroes[3]);
+        bool monsters_all_dead(Monster* Monsters[4]);
+        void update_buffs(Hero**, Monster* Monsters[4]);
 };
 
 #endif // COMMONSQUARE_H

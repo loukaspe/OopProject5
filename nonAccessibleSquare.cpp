@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "nonAccessibleSquare.h"
 #include "Square.h"
 #include "Living.h"

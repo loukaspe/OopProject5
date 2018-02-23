@@ -1,5 +1,9 @@
+#include <cstdlib>
 #include "CommonSquare.h"
 #include "Square.h"
+#include "Grid.h"
+#include "Buff.h"
+#include "Buff_list.h"
 
 CommonSquare::CommonSquare(int givenX, int givenY):  Square(SQUARE_TYPE_COMMON, givenX, givenY)
 {}
@@ -8,45 +12,52 @@ CommonSquare::~CommonSquare()
 {}
 
 /* Function for when the user is on a Common Square */
-void CommonSquare::displayMenu(Hero** myHeroes, Grid* myGrid)
+void CommonSquare::displayMenu(Hero** myHeroes)
 {
     // There are two options: Battle or ShowMenu depending on the outcome of the rand and the BATTLE_POSSIBILITY
     int r = rand() % 101;
     if(r >= BATTLE_POSSIBILITY)
-        for(int i = 0; i < 3; i++)
-                battle(myHeroes);
+        battle(myHeroes);
     else
-        for(int i = 0; i < 3; i++)
-            if(myHeroes[i] != NULL)
-                noBattle(myHeroes[i], myGrid);
+        noBattle(myHeroes);
 
 }
 
 /* Function for the battle ( If battle does happen ) */
 void CommonSquare::battle(Hero** myHeroes)
 {
+    cout << "There will be a battle in this square\n\n\tBATTLE" << endl;
+    bool heroesWon;                 // variable to see if the Heroes won the Monsters
+    int winExp;                     // variable about how much XP will the heroes gain if they win
     /* dhmiourgia teratwn */
     Monster* Monsters[4];
-	int lvl = Heroes[0]->get_level();
-	Fill_monsters(Monsters,lvl);
+	int lvl = myHeroes[0]->get_level();
+	fill_monsters(Monsters,lvl);
+	winExp = get_xp(Monsters);
 
-	while(checkIfHeroesAreDead() && checkIfMonstersAreDead())
+	while(!heroes_all_dead(myHeroes) && !monsters_all_dead(Monsters))
     {
         battleHerosTurn(myHeroes, Monsters);
         battleMonstersTurn(myHeroes, Monsters);
     }
 
-    afterBattle();
+    if(monsters_all_dead(Monsters))
+        heroesWon = true;
+    else
+        heroesWon = false;
+
+    afterBattle(myHeroes, heroesWon, winExp);
 }
 
 /* Function for the Heroes' turn in the battle */
 void CommonSquare::battleHerosTurn(Hero** myHeroes, Monster* Monsters[4])
 {
+    cout << "Heroes' Turn!" << endl;
     int option;
 
     for(int i = 0; i < 3; i++)
     {
-        if(myHeroes[i] != NULL)
+        if(myHeroes[i] != NULL && myHeroes[i]->get_chealth() > 0)
         {
             showBattleOptions();
             cin >> option;
@@ -59,8 +70,6 @@ void CommonSquare::battleHerosTurn(Hero** myHeroes, Monster* Monsters[4])
                 cin >> option;
             }
 
-            // ti kanei to flag?
-
             if(option == 1)
                 attack(myHeroes[i], Monsters);
             else if(option == 2)
@@ -68,45 +77,81 @@ void CommonSquare::battleHerosTurn(Hero** myHeroes, Monster* Monsters[4])
             else if(option == 3)
                 use(myHeroes[i]);
             else if(option == 4)
-                myHero->equip_weapon();         // thelei oplo sthn parenthesi
+                myHeroes[i]->equip_weapon();
             else if(option == 5)
-                myHero->equip_armor();          // thelei armor sthn parenthesi
+                myHeroes[i]->equip_armor();
+
+            update_buffs(myHeroes, Monsters);
         }
     }
 
-    // prepei na pairnei kai ligo zwh kai magikh energeia
-    // prepei na emfanizontai ta statistika toy hrwa
+    for(int i = 0; i < 3; i++)
+    {
+        if(myHeroes[i]->get_chealth() != 0)
+        {
+            myHeroes[i]->restore_health(10);
+            myHeroes[i]->restore_magicpower(10);
+            myHeroes[i]->print_stats();
+        }
+    }
+}
+
+/* Function for the Monsters' turn in the battle */
+void CommonSquare::battleMonstersTurn(Hero** myHeroes, Monster* Monsters[4])
+{
+    cout << "Monsters' Turn!" << endl;
+    //update_buffs(myHeroes, Monsters);
+    for (int i = 0; i < 4; i++)
+    {
+        int h_att;
+        if (Monsters[i] != NULL)
+        {
+            cout << "The #" << i << " monster is attacking!" << endl;
+            h_att = rand() % 3;
+            while (myHeroes[h_att] == NULL || myHeroes[h_att]->get_chealth() == 0)
+            {
+                h_att = rand() % 3;
+            }
+            cout << "A Monster will attack the #" << h_att + 1 << " Hero!" << endl;
+            myHeroes[h_att]->receive_damage(Monsters[i]->get_damage()*Monsters[i]->buffs.get_all_dmg());
+            cout << "Health remaining= " << myHeroes[h_att]->get_chealth() << endl;
+            update_buffs(myHeroes, Monsters);
+        }
+    }
 }
 
 /* Function of what to do in case there is no battle in the Common Square ( If battle does not happen ) */
-void CommonSquare::noBattle(Hero* myHero, Grid* myGrid)
+void CommonSquare::noBattle(Hero** myHeroes)
 {
+    cout << "There will be no battle in this square" << endl;
     int option;
-    showNoBattleOptions();
-    cin >> option;
 
-    while(option != 1 && option != 2 && option != 3 &&
-          option != 4 && option != 5 && option != 6 )
+    for(int i = 0; i < 3; i++)
     {
-        cout << "Wrong Option\n";
         showNoBattleOptions();
         cin >> option;
+
+        while(option != 1 && option != 2 && option != 3 &&
+              option != 4 && option != 5)           // esbhsa option 6
+        {
+            cout << "Wrong Option\n";
+            showNoBattleOptions();
+            cin >> option;
+        }
+
+        if(option == 1)
+            myHeroes[i]->inv.print_all();
+        else if(option == 2)
+            myHeroes[i]->equip_weapon();
+        else if(option == 3)
+            myHeroes[i]->equip_armor();
+        else if(option == 4)
+            use(myHeroes[i]);
+        else if(option == 5)
+            myHeroes[i]->print_stats();
+//        else if(option == 6)
+////            myGrid->displayMap();
     }
-
-    if(option == 1)                     // oi equip isws theloyn allagh wste na dinei thn dynatothta na dialegoyme kai oplo, oxi mono na ta equip
-        myHero->getInventory().print_all();
-    else if(option == 2)
-        myHero->equip_weapon();         // thelei oplo sthn parenthesi
-    else if(option == 3)
-        myHero->equip_armor();          // thelei armor sthn parenthesi
-    else if(option == 4)
-        use();                          // ylopoihsh
-    else if(option == 5)
-        myHero->showInfo();             // ylopoihsh
-    else if(option == 6)
-        myGrid->displayMap();
-
-    // ekana apla ena menu gia na deis thn logikh, prosthese oti thes
 }
 
 /* Function to show a menu to the user to choose what to do in the common square if not battle happens */
@@ -118,7 +163,7 @@ void CommonSquare::showNoBattleOptions()
     cout << "Change Equipped Armor (Press 3)" << endl;
     cout << "Use a Potion (Press 4)" << endl;
     cout << "Show Hero's Information (Press 5)" << endl;
-    cout << "See the Map (Press 6)" << endl;
+    //cout << "See the Map (Press 6)" << endl;
 }
 
 /* Function to show a menu to the user to choose what to do in the battle */
@@ -198,7 +243,7 @@ void CommonSquare::print_monsters_in_battle(Monster* monsters[4])
 }
 
 /* Function for the Heroes to attack the monsters in the battle function */
-void CommonSquare::attack(Monster* monsters[4], Hero* myHero)
+void CommonSquare::attack(Hero* myHero, Monster* Monsters[4])
 {
     int damage;
     int mchoice;
@@ -218,10 +263,14 @@ void CommonSquare::attack(Monster* monsters[4], Hero* myHero)
         delete Monsters[mchoice];
         Monsters[mchoice] = NULL;
     }
+    else
+    {
+        cout << "Monster Remaining Health = " << Monsters[mchoice]->get_c_health() << endl;
+    }
 }
 
 /* Function for the heroes to cast a spell to the monsters in the battle function */
-void CommonSquare::castSpell(Monster* monsters[4], Hero* myHero)
+void CommonSquare::castSpell(Monster* Monsters[4], Hero* myHero)
 {
     if (myHero->inv.is_spell_list_empty() == true)
     {
@@ -234,12 +283,12 @@ void CommonSquare::castSpell(Monster* monsters[4], Hero* myHero)
         cout << "Please input the number of the spell to use: " << endl;
         cin >> schoice;
         cout << endl;
-        while (schoice > Heroes[i]->inv.get_spell_list_size() || schoice < 1)
+        while (schoice > myHero->inv.get_spell_list_size() || schoice < 1)
         {
             cout << "Bad input!\nPlease choose again:" << endl;
             cin >> schoice;
         }
-        else
+
         {
             schoice--;
             if (myHero->inv.get_spell_manareq(schoice) > myHero->get_magicpower())
@@ -307,16 +356,15 @@ void CommonSquare::use(Hero* myHero)
             cout << "Bad input!\nPlease choose again:" << endl;
             cin >> pchoice;
         }
-        else
-        {
+
             pchoice--;
             if (myHero->inv.get_potion_type(pchoice) == "Health")
             {
-                myHero->restore_health(myHero->inv.get_potion_power(i));
+                myHero->restore_health(myHero->inv.get_potion_power(pchoice));
             }
             else if (myHero->inv.get_potion_type(pchoice) == "Magic")
             {
-                myHero->restore_magicpower(myHero->inv.get_potion_power(i));
+                myHero->restore_magicpower(myHero->inv.get_potion_power(pchoice));
             }
             else if (myHero->inv.get_potion_type(pchoice) == "Damage")
             {
@@ -330,14 +378,99 @@ void CommonSquare::use(Hero* myHero)
             {
                 myHero->buffs.add_agibuff(myHero->inv.get_potion_power(pchoice), 3);
             }
-        }
+
+            myHero->inv.remove_potion(pchoice + 1);     // giati + 1?
     }
 }
 
 /* Function for the aftermath of the war */
-void CommonSquare::afterBattle(Hero** myHeroes)
+void CommonSquare::afterBattle(Hero** myHeroes, bool heroesWon, int winXp)
 {
-    // lefta kai empeiria ston hrwa analoga me level monsters
-    // an xasoyn xanoyn ta misa lefta
-    // an exei pethanei pairnei th mish zwh
+    if(heroesWon == true)       // if the heroes won the battle
+    {
+        for(int i = 0; i < 3; i++)
+        {
+            if(myHeroes[i] != NULL)
+            {
+                myHeroes[i]->addMoney(10);          // posa lefta?
+                myHeroes[i]->addExperience(winXp);
+            }
+        }
+    }
+    else                        // if the heroes lost the battle
+    {
+        for(int i = 0; i < 3; i++)
+        {
+            if(myHeroes[i] != NULL)
+            {
+                myHeroes[i]->subMoney(myHeroes[i]->get_money()/2);
+                myHeroes[i]->restore_health(myHeroes[i]->get_health()/2);
+            }
+        }
+    }
 }
+
+/* Function to gain the Experience xp from the battle */
+int CommonSquare::get_xp(Monster* Monsters[4])
+{
+    int xp=0;
+	for (int i = 0 ; i < 4 ; i++)
+	{
+		if (Monsters[i] != NULL)
+		{
+			xp = xp + Monsters[i]->get_level() * 200;
+		}
+	}
+	return xp;
+}
+
+/* Function to check if the heroes are all fainted */
+bool CommonSquare::heroes_all_dead(Hero* Heroes[3])
+{
+    for (int i = 0; i < 3; i++)
+	{
+		if (Heroes[i] != NULL && Heroes[i]->get_chealth() !=0)
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
+/* Function to check if the Monsters are all dead
+ * returns true if they are dead */
+bool CommonSquare::monsters_all_dead(Monster* Monsters[4])
+{
+    for (int i = 0; i < 4; i++)
+	{
+		if (Monsters[i] != NULL)
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
+/* Function to update the Buffs of the Heroes and Monsters in each round
+ * returns true if they are dead */
+void CommonSquare::update_buffs(Hero** Heroes, Monster* Monsters[4])
+{
+    for (int i = 0; i < 3; i++)
+	{
+		if (Heroes[i] != NULL)
+		{
+			Heroes[i]->buffs.move_buffs();
+			Heroes[i]->buffs.check_buffs();
+		}
+	}
+	for (int i = 0; i < 4; i++)
+	{
+		if (Monsters[i] != NULL)
+		{
+			Monsters[i]->buffs.move_buffs();
+			Monsters[i]->buffs.check_buffs();
+		}
+	}
+	cout << "Buffs updated" << endl;
+}
+

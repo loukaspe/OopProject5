@@ -32,22 +32,19 @@ public:
 class FireSpell: public Spell
 {
     public:
-        FireSpell(string nm, int pr, int mlvl, int dmg, int manr): Spell(string nm, int pr, int mlvl, int dmg, int manr), type("Fire"){}
-        ~FireSpell();
+        FireSpell(string, int, int, int, int);
 };
 
 class LightningSpell: public Spell
 {
     public:
-        LightningSpell(string nm, int pr, int mlvl, int dmg, int manr): Spell(string nm, int pr, int mlvl, int dmg, int manr), type("Lightning"){}
-        ~LightningSpell();
+        LightningSpell(string, int, int, int, int);
 };
 
 class IceSpell: public Spell
 {
     public:
-        IceSpell(string nm, int pr, int mlvl, int dmg, int manr): Spell(string nm, int pr, int mlvl, int dmg, int manr), type("Ice"){}
-        ~IceSpell();
+        IceSpell(string, int, int, int, int);
 };
 
 #endif //SPELL

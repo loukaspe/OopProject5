@@ -21,16 +21,25 @@ Grid::Grid(int x, int y): dimensionX(x), dimensionY(y)
     for(int i = 0; i < y; ++i)
         grid[i] = new Square*[x];
 
+    r = rand() % 3;                             // this is in order the first square not be a non-Accessible
+    if(r == 0)
+        grid[0][0] = new MarketSquare(0, 0);
+    else
+        grid[0][0] = new CommonSquare(0, 0);
+
     for(int i = 0; i < x; i++)
         for(int j = 0; j < y; j++)
         {
-            r = rand()%100;
-            if( r > COMMON_SQUARE_POSSIBILITY)
-                grid[i][j] = new CommonSquare(i, j);
-            else if( r > MARKET_SQUARE_POSSIBILITY)
-                grid[i][j] = new MarketSquare(i, j);
-            else
-                grid[i][j] = new nonAccessibleSquare(i, j);
+            if(i != 0 || j != 0)
+            {
+                r = rand()%100;
+                if( r > COMMON_SQUARE_POSSIBILITY)
+                    grid[i][j] = new CommonSquare(i, j);
+                else if( r > MARKET_SQUARE_POSSIBILITY)
+                    grid[i][j] = new MarketSquare(i, j);
+                else
+                    grid[i][j] = new nonAccessibleSquare(i, j);
+            }
         }
 
     currentPosition = grid[0][0];
@@ -62,8 +71,17 @@ int Grid::getDimY()
 }
 
 /* Function to move the hero onto the Grid */
-void Grid::moveGrid(char direction)
+void Grid::moveGrid()
 {
+    char direction;
+    cout << "Please choose the direction:\n(w: Up, a: Left, s: Down, d: Right" << endl;
+    cin >> direction;
+    while(direction != 'w' && direction != 'a' && direction != 's' && direction != 'd')
+    {
+        cout << "Wrong Input\nPlease Choose again the direction:\n(Only Lower Case Letters)" << endl;
+        cin >> direction;
+    }
+
     switch(direction)
     {
         case 'a':
@@ -161,11 +179,11 @@ void Grid::moveGrid(char direction)
             for(int j = 0 ; j < dimensionY; j++)
             {
                 if(grid[i][j]->getSquareType() == SQUARE_TYPE_COMMON)
-                    squareType = "C";
+                    squareType = "C ";
                 else if(grid[i][j]->getSquareType() == SQUARE_TYPE_MARKET)
-                    squareType = "M";
+                    squareType = "M ";
                 else if(grid[i][j]->getSquareType() == SQUARE_TYPE_NON_ACCESSIBLE)
-                    squareType = "N-A";
+                    squareType = "N-A ";
                 else
                     exit(1);
 

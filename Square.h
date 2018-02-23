@@ -20,7 +20,7 @@ class Square
         int getY() const;
         void setY(int givenY);
         int getSquareType() const;
-        virtual void displayMenu(Hero*) = 0;
+        virtual void displayMenu(Hero**) = 0;
     private:
         int squareType;
         int x;
