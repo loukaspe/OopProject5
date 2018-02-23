@@ -67,13 +67,6 @@ public:
 	int get_expreq();
 	void print_stats();
 
-	void sell_weapon(int no);
-	void sell_armor(int no);
-	void sell_potion(int no);
-	void sell_spell(int no);
-	void sell_equipedweapon();
-	void sell_equipedarmor();
-
 	void equip_armor();
 	void equip_weapon();
 	void equip_weapon(int no);
