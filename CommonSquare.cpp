@@ -191,6 +191,8 @@ void CommonSquare::noBattle(Hero** myHeroes)
 
                 }
             }
+
+            option = 0;
         }
     }
 }

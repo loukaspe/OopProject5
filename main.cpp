@@ -28,6 +28,7 @@ int main(void)
 
     int heroesNumber;
     int r;
+    string name;
     Hero* myHeroes[3] = {NULL, NULL, NULL};
 
     cout << "\tWelcome to our Game\n\nPlease choose how many Heroes you want (One to Three):" << endl;
@@ -43,26 +44,31 @@ int main(void)
     Market* myMarket = MarketSquare::getMarket(inFile);
     inFile.close();
 
+    inFile.open("heroesNames.txt");
+
     for(int i = 0; i < heroesNumber; i++)
     {
         r = rand()%3;
         if(r == 0)
         {
-            myHeroes[i] = new Paladin();
+            inFile >> name;
+            myHeroes[i] = new Paladin(name);
         }
         else if(r == 1)
         {
-            myHeroes[i] = new Sorcerer();
+            inFile >> name;
+            myHeroes[i] = new Sorcerer(name);
         }
         else if(r == 2)
         {
-            myHeroes[i] = new Warrior();
+            inFile >> name;
+            myHeroes[i] = new Warrior(name);
         }
     }
-
+    myHeroes[0]->get_name();
     Grid* myGrid = new Grid(5, 5);
     myHeroes[0]->addMoney(59999);
-    myHeroes[1]->addMoney(59999);
+    //myHeroes[1]->addMoney(59999);
 
     while(1)
     {

@@ -17,7 +17,7 @@ int Living::get_level() { return lvl; }
 /*Hero functions*/
 void Hero::print_stats()
 {
-	cout << "Name: " << name;
+	cout << "Name: " << name << endl;
 	cout << "Health= " << health << endl;
 	cout << "Level= " << lvl << endl;
 	cout << "Magic power= " << magic_power << endl;
@@ -47,6 +47,7 @@ void Hero::print_stats()
 
 	cout << endl;
 }
+string Hero::get_name() { return name; }
 int Hero::get_magicpower() { return magic_power; }
 int Hero::get_strength() { return strength; }
 int Hero::get_dexterity() { return dexterity; }
@@ -184,8 +185,7 @@ void Warrior::check_levelup()
 		health += +50;
 		c_health += +50;
 		magic_power = +15;
-        cout << "Warrior leveled up!" << endl;
-
+		cout << "Warrior leveled up!" << endl;
 	}
 }
 
@@ -241,6 +241,14 @@ void Warrior::receive_damage(int dmg)
 	}
 }
 
+void Warrior::print_stats()
+{
+	cout << "\tWarrior stats:" << endl;
+	Hero::print_stats();
+	cout << "Current health: " << c_health << endl;
+	cout << "Current magic power: " << c_magicpower << endl;
+}
+
 /*Sorcerer functions*/
 void Sorcerer::check_levelup()
 {
@@ -255,6 +263,7 @@ void Sorcerer::check_levelup()
 		health += +30;
 		c_health += 30;
 		magic_power += +35;
+		cout << "Sorcerer leveled up!" << endl;
 	}
 }
 
@@ -311,6 +320,14 @@ void Sorcerer::restore_magicpower(int value)
 }
 
 
+void Sorcerer::print_stats()
+{
+	cout << "\tSorcerer stats:" << endl;
+	Hero::print_stats();
+	cout << "Current health: " << c_health << endl;
+	cout << "Current magic power: " << c_magicpower << endl;
+}
+
 /*Paladin functions*/
 void Paladin::check_levelup()
 {
@@ -325,6 +342,7 @@ void Paladin::check_levelup()
 		health += +60;
 		c_health += 60;
 		magic_power += +25;
+		cout << "Paladin leveled up!" << endl;
 	}
 }
 
@@ -378,6 +396,15 @@ void Paladin::restore_magicpower(int value)
 		c_magicpower = magic_power;
 	}
 	cout << "Magic power restored!" << endl;
+}
+
+
+void Paladin::print_stats()
+{
+	cout << "\tPaladin stats:" << endl;
+	Hero::print_stats();
+	cout << "Current health: " << c_health << endl;
+	cout << "Current magic power: " << c_magicpower << endl;
 }
 
 

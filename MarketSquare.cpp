@@ -65,6 +65,7 @@ void MarketSquare::displayMenu(Hero** myHeroes)
                         break;
                 }
             }
+            option = -1;
         }
     }
 }
@@ -99,14 +100,19 @@ void MarketSquare::displayMenu(Hero** myHeroes)
             market->print_potions();
         else if(optionOne == 5)
             return;
-        cout << "Choose the number of the list that you want" << endl;
 
+        cout << "Choose the number of the list that you want" << endl;
         cin >> optionTwo;
 
         if(optionOne == 1)
         {
-           if(myHero->get_money() >= market->getWeapons().at(optionTwo - 1).get_price())
-           {
+            while(optionTwo > market->getWeapons().size() || optionTwo <= 0)
+            {
+                cout << "Wrong Input\nChoose again the number of the list that you want" << endl;
+                cin >> optionTwo;
+            }
+            if(myHero->get_money() >= market->getWeapons().at(optionTwo - 1).get_price())
+            {
                if(myHero->get_level() >= market->getWeapons().at(optionTwo - 1).get_minlvl())
                {
                     myHero->subMoney(market->getWeapons().at(optionTwo - 1).get_price());
@@ -117,14 +123,19 @@ void MarketSquare::displayMenu(Hero** myHeroes)
                 {
                     cout << "Your Hero doesn't have the Level required for this purchase" << endl;
                 }
-           }
-           else
-           {
+            }
+            else
+            {
                 cout << "Your Hero doesn't have enough money for this purchase" << endl;
-           }
+            }
         }
         else if(optionOne == 2)
         {
+            while(optionTwo > market->getSpells().size() || optionTwo <= 0)
+            {
+                cout << "Wrong Input\nChoose again the number of the list that you want" << endl;
+                cin >> optionTwo;
+            }
             if(myHero->get_money() >= market->getSpells().at(optionTwo - 1).get_price())
             {
                 if(myHero->get_level() >=  market->getSpells().at(optionTwo - 1).get_minlvl())
@@ -146,6 +157,11 @@ void MarketSquare::displayMenu(Hero** myHeroes)
 
         else if(optionOne == 3)
         {
+            while(optionTwo > market->getArmors().size() || optionTwo <= 0)
+            {
+                cout << "Wrong Input\nChoose again the number of the list that you want" << endl;
+                cin >> optionTwo;
+            }
             if(myHero->get_money() >= market->getArmors().at(optionTwo - 1).get_price())
             {
                 if(myHero->get_level() >= market->getArmors().at(optionTwo - 1).get_minlvl())
@@ -167,6 +183,11 @@ void MarketSquare::displayMenu(Hero** myHeroes)
 
         else if(optionOne == 4)
         {
+            while(optionTwo > market->getPotions().size() || optionTwo <= 0)
+            {
+                cout << "Wrong Input\nChoose again the number of the list that you want" << endl;
+                cin >> optionTwo;
+            }
             if(myHero->get_money() >= market->getPotions().at(optionTwo - 1).get_price())
             {
                 if(myHero->get_level() >= market->getPotions().at(optionTwo - 1).get_minlvl())

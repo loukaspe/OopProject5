@@ -91,6 +91,11 @@ Armor Inventory::get_armor(int no)
 
 void Inventory::print_spells()
 {
+	if(spell_list.size() == 0)
+    {
+        cout << "There are no Spells available" << endl;
+        return;
+    }
 	for (unsigned i = 0; i < spell_list.size(); i++)
 	{
 		cout << "Spell #" << i + 1 << ":" << endl;
@@ -100,6 +105,11 @@ void Inventory::print_spells()
 
 void Inventory::print_weapons()
 {
+    if(weapon_list.size() == 0)
+    {
+        cout << "There are no Weapons available" << endl;
+        return;
+    }
 	for (unsigned i = 0; i < weapon_list.size(); i++)
 	{
 		cout << "Weapon #" << i + 1 << ":" << endl;
@@ -109,6 +119,11 @@ void Inventory::print_weapons()
 
 void Inventory::print_armors()
 {
+	if(armor_list.size() == 0)
+    {
+        cout << "There are no Armors available" << endl;
+        return;
+    }
 	for (unsigned i = 0; i < armor_list.size(); i++)
 	{
 		cout << "Armor #" << i + 1 << ":" << endl;
@@ -118,6 +133,11 @@ void Inventory::print_armors()
 
 void Inventory::print_potions()
 {
+	if(potion_list.size() == 0)
+    {
+        cout << "There are no Potions available" << endl;
+        return;
+    }
 	for (unsigned i = 0; i < potion_list.size(); i++)
 	{
 		cout << "Potion #" << i + 1 << ":" << endl;

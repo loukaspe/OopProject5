@@ -32,6 +32,7 @@ public:
 class Hero :public Living
 {
 protected:
+	string name;
 	int magic_power;
 	int strength;
 	int dexterity;
@@ -45,8 +46,9 @@ public:
 	Inventory inv;
 	Buff_list buffs;
 public:
-	Hero(int h, int mag, int str, int dex, int agi) :Living(h)
+	Hero(string nm, int h, int mag, int str, int dex, int agi) :Living(h)
 	{
+		name = nm;
 		magic_power = mag;
 		strength = str;
 		dexterity = dex;
@@ -58,6 +60,7 @@ public:
 		weapon = NULL;
 	}
 	virtual void check_levelup() = 0;
+	string get_name();
 	int get_magicpower();
 	int get_strength();
 	int get_dexterity();
@@ -65,7 +68,7 @@ public:
 	int get_money();
 	int get_experience();
 	int get_expreq();
-	void print_stats();
+	virtual void print_stats();
 
 	void equip_armor();
 	void equip_weapon();
@@ -100,7 +103,7 @@ protected:
 	int c_agility;
 
 public:
-	Warrior(int h = 150, int mag = 100, int str = 60, int dex = 30, int agi = 45) : Hero(h, mag, str, dex, agi)
+	Warrior(string nm, int h = 150, int mag = 100, int str = 60, int dex = 30, int agi = 45) : Hero(nm,h, mag, str, dex, agi)
 	{
 		c_health = health;
 		c_magicpower = magic_power;
@@ -115,6 +118,7 @@ public:
 	void receive_damage(int dmg);
 	int get_chealth();
 	int get_cmagicpower();
+	void print_stats();
 };
 
 class Sorcerer :public Hero
@@ -127,7 +131,7 @@ protected:
 	int c_dexterity;
 	int c_agility;
 public:
-	Sorcerer(int h = 130, int mag = 250, int str = 30, int dex = 60, int agi = 45) : Hero(h, mag, str, dex, agi)
+	Sorcerer(string nm, int h = 130, int mag = 250, int str = 30, int dex = 60, int agi = 45) : Hero(nm,h, mag, str, dex, agi)
 	{
 		c_health = health;
 		c_magicpower = magic_power;
@@ -142,6 +146,7 @@ public:
 	int get_chealth();
 	void receive_damage(int dmg);
 	int get_cmagicpower();
+	void print_stats();
 };
 
 class Paladin :public Hero
@@ -154,7 +159,7 @@ protected:
 	int c_dexterity;
 	int c_agility;
 public:
-	Paladin(int h = 180, int mag = 140, int str = 60, int dex = 45, int agi = 30) : Hero(h, mag, str, dex, agi)
+	Paladin(string nm, int h = 180, int mag = 140, int str = 60, int dex = 45, int agi = 30) : Hero(nm,h, mag, str, dex, agi)
 	{
 		c_health = health;
 		c_magicpower = magic_power;
@@ -169,6 +174,7 @@ public:
 	int get_chealth();
 	void receive_damage(int dmg);
 	int get_cmagicpower();
+	void print_stats();
 };
 
 

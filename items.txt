@@ -1,20 +1,20 @@
-WeaponI 110 1 20 ONE
-SpellI  Fire 100 2 35 40
-ArmorI 100 1 15
-PotionI 40 1 Health 70
-WeaponII 120 2 30 ONE
-SpellII  Ice 100 1 30 45
-ArmorII 120 1 25
-PotionII 50 1 Health 85
-WeaponIII 130 2 35 TWO
-SpellIII  Lightning 120 2 40 50
-ArmorIII 130 2 30
-PotionIII 30 1 Magic 60
-WeaponIIII 90 1 15 ONE
-SpellIIII  Fire 110 1 25 20
-ArmorIIII 80 1 10
-PotionIIII 30 2 Damage 10
-WeaponIIIII 110 1 25 TWO
-SpellIIIII  Ice 120 2 40 35
-ArmorIIIII 140 2 35
-PotionIIIII 60 1 Defence 15
+Sword 110 1 20 ONE
+Flame Fire 100 2 35 40
+Protector 100 1 15
+Potion 40 1 Health 70
+Dagger 120 2 30 ONE
+Freeze  Ice 100 1 30 45
+Emblem 120 1 25
+Hi-Potion 50 1 Health 85
+Crossbow 130 2 35 TWO
+Bolt  Lightning 120 2 40 50
+Mythrill 130 2 30
+Elixir 30 1 Magic 60
+Excalibur 90 1 15 ONE
+Torch Fire 110 1 25 20
+Defender 80 1 10
+Megalixir 30 2 Damage 10
+Caladbolg 110 1 25 TWO
+Daze  Ice 120 2 40 35
+Shield 140 2 35
+Antidote 60 1 Defence 15
