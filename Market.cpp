@@ -48,6 +48,8 @@ Market::Market(ifstream& inFile)
 
                    if(w_hd_temp == "ONE")
                         w_hd = true;
+                    else
+                        w_hd = false;
 
                    addWeapon(w_nm, w_pr, w_mlvl, w_dmg, w_hd);
 

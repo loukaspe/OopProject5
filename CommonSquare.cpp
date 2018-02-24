@@ -57,33 +57,38 @@ void CommonSquare::battleHerosTurn(Hero** myHeroes, Monster* Monsters[4])
 {
     cout << "Heroes' Turn!" << endl;
     int option;
+    bool doneTurn;
 
     for(int i = 0; i < 3; i++)
     {
         if(myHeroes[i] != NULL && myHeroes[i]->get_chealth() > 0 && !monsters_all_dead(Monsters))   // Loukas
         {
-            cout << "\tHero " << i << " Options:" << endl;                                          // Loukas
-            showBattleOptions();
-            cin >> option;
-
-            while(option != 1 && option != 2 && option != 3 &&
-                  option != 4 && option != 5)
+            doneTurn = false;
+            while(doneTurn == false)
             {
-                cout << "Wrong Option\n";
+                cout << "\tHero " << i << " Options:" << endl;                                          // Loukas
                 showBattleOptions();
                 cin >> option;
-            }
 
-            if(option == 1)
-                attack(myHeroes[i], Monsters);
-            else if(option == 2)
-                castSpell(Monsters, myHeroes[i]);
-            else if(option == 3)
-                use(myHeroes[i]);
-            else if(option == 4)
-                myHeroes[i]->equip_weapon();
-            else if(option == 5)
-                myHeroes[i]->equip_armor();
+                while(option != 1 && option != 2 && option != 3 &&
+                      option != 4 && option != 5)
+                {
+                    cout << "Wrong Option\n";
+                    showBattleOptions();
+                    cin >> option;
+                }
+
+                if(option == 1)
+                    doneTurn = attack(myHeroes[i], Monsters);
+                else if(option == 2)
+                    doneTurn = castSpell(Monsters, myHeroes[i]);
+                else if(option == 3)
+                    doneTurn = use(myHeroes[i]);
+                else if(option == 4)
+                    myHeroes[i]->equip_weapon();
+                else if(option == 5)
+                    myHeroes[i]->equip_armor();
+            }
 
             update_buffs(myHeroes, Monsters);
         }
@@ -108,25 +113,35 @@ void CommonSquare::herosRestore(Hero** myHeroes)        // Loukas
 }
 
 /* Function for the Monsters' turn in the battle */
-void CommonSquare::battleMonstersTurn(Hero** myHeroes, Monster* Monsters[4])
+void CommonSquare::battleMonstersTurn(Hero* myHeroes[3], Monster* Monsters[4])
 {
-    cout << "Monsters' Turn!" << endl;
-    //update_buffs(myHeroes, Monsters);
-    for (int i = 0; i < 4; i++)
+    if(!heroes_all_dead(myHeroes))
     {
-        int h_att;
-        if (Monsters[i] != NULL)
+        cout << "Monsters' Turn!" << endl;
+        //update_buffs(myHeroes, Monsters);
+        for (int i = 0; i < 4; i++)
         {
-            cout << "The #" << i << " monster is attacking!" << endl;
-            h_att = rand() % 3;
-            while (myHeroes[h_att] == NULL || myHeroes[h_att]->get_chealth() == 0)
+            if(!heroes_all_dead(myHeroes))
             {
-                h_att = rand() % 3;
+                int h_att;
+                if (Monsters[i] != NULL)
+                {
+                    cout << "The #" << i << " monster is attacking!" << endl;
+                    h_att = rand() % 3;
+                    while (myHeroes[h_att] == NULL || myHeroes[h_att]->get_chealth() == 0)
+                    {
+                        h_att = rand() % 3;
+                    }
+                    cout << "A Monster will attack the #" << h_att + 1 << " Hero!" << endl;
+                    myHeroes[h_att]->receive_damage(Monsters[i]->get_damage()*Monsters[i]->buffs.get_all_dmg());
+                    cout << "Health remaining= " << myHeroes[h_att]->get_chealth() << endl;
+                    update_buffs(myHeroes, Monsters);
+                }
             }
-            cout << "A Monster will attack the #" << h_att + 1 << " Hero!" << endl;
-            myHeroes[h_att]->receive_damage(Monsters[i]->get_damage()*Monsters[i]->buffs.get_all_dmg());
-            cout << "Health remaining= " << myHeroes[h_att]->get_chealth() << endl;
-            update_buffs(myHeroes, Monsters);
+            else
+            {
+                cout << "Monster cannot attack because the Heroes are dead" << endl;
+            }
         }
     }
 }
@@ -135,7 +150,7 @@ void CommonSquare::battleMonstersTurn(Hero** myHeroes, Monster* Monsters[4])
 void CommonSquare::noBattle(Hero** myHeroes)
 {
     cout << "There will be no battle in this square" << endl;
-    int option = 6;
+    int option = 0;
 
     for(int i = 0; i < 3; i++)
     {
@@ -148,7 +163,7 @@ void CommonSquare::noBattle(Hero** myHeroes)
                 cin >> option;
 
                 while(option != 1 && option != 2 && option != 3 &&
-                      option != 4 && option != 5 && option != 6)           // esbhsa option 6
+                      option != 4 && option != 5 && option != 6)
                 {
                     cout << "Wrong Option\n";
                     showNoBattleOptions();
@@ -166,7 +181,9 @@ void CommonSquare::noBattle(Hero** myHeroes)
                 else if(option == 5)
                     myHeroes[i]->print_stats();
                 else if(option == 6)
-                    return;
+                {
+
+                }
             }
         }
     }
@@ -180,8 +197,8 @@ void CommonSquare::showNoBattleOptions()
     cout << "Change Equipped Weapon (Press 2)" << endl;
     cout << "Change Equipped Armor (Press 3)" << endl;
     cout << "Use a Potion (Press 4)" << endl;
-    cout << "Show Hero's Information (Press 5)" << endl << endl;
-    cout << "Continue your journey (Press 6)" << endl;
+    cout << "Show Hero's Information (Press 5)" << endl;
+    cout << "Continue your journey (Press 6)" << endl << endl;
 }
 
 /* Function to show a menu to the user to choose what to do in the battle */
@@ -255,6 +272,10 @@ void CommonSquare::print_monsters_in_battle(Monster* monsters[4])
 		{
 			cout << i << " ";
 		}
+		else
+        {
+            cout << "_ ";
+        }
 	}
 	cout << "}" << endl;
 	for (int i = 0; i < 4; i++)
@@ -268,12 +289,19 @@ void CommonSquare::print_monsters_in_battle(Monster* monsters[4])
 }
 
 /* Function for the Heroes to attack the monsters in the battle function */
-void CommonSquare::attack(Hero* myHero, Monster* Monsters[4])
+bool CommonSquare::attack(Hero* myHero, Monster* Monsters[4])
 {
     int damage;
     int mchoice;
-    if(myHero->getEquippedWeapon() != NULL)     //Loukas
+    int doneTurn = false;
+    if(myHero->getEquippedWeapon() != NULL)
+    {                                                   //Loukas
         damage = (myHero->getEquippedWeapon()->get_damage() + myHero->get_strength()/4)*myHero->buffs.get_all_dmg();
+    }
+    else
+    {
+        damage = (myHero->get_strength()/4)*myHero->buffs.get_all_dmg();
+    }
     print_monsters_in_battle(Monsters);
     cout << "Select the monster you want to attack: " << endl;
     cin >> mchoice;
@@ -284,6 +312,7 @@ void CommonSquare::attack(Hero* myHero, Monster* Monsters[4])
         cin >> mchoice;
     }
     Monsters[mchoice]->receive_damage(damage);
+    doneTurn = true;
     if (Monsters[mchoice]->get_c_health() == 0)
     {
         delete Monsters[mchoice];
@@ -293,11 +322,15 @@ void CommonSquare::attack(Hero* myHero, Monster* Monsters[4])
     {
         cout << "Monster Remaining Health = " << Monsters[mchoice]->get_c_health() << endl;
     }
+
+    return doneTurn;
 }
 
 /* Function for the heroes to cast a spell to the monsters in the battle function */
-void CommonSquare::castSpell(Monster* Monsters[4], Hero* myHero)
+bool CommonSquare::castSpell(Monster* Monsters[4], Hero* myHero)
 {
+    bool doneTurn = false;
+
     if (myHero->inv.is_spell_list_empty() == true)
     {
         cout << "The spell list is empty!" << endl;
@@ -338,6 +371,7 @@ void CommonSquare::castSpell(Monster* Monsters[4], Hero* myHero)
                 }
 
                 Monsters[mchoice]->receive_damage(damage);
+                doneTurn = true;
                 if (Monsters[mchoice]->get_c_health() == 0)
                 {
                     delete Monsters[mchoice];
@@ -347,25 +381,29 @@ void CommonSquare::castSpell(Monster* Monsters[4], Hero* myHero)
                 {
                     if (myHero->inv.get_spell_type(schoice) == "Fire")
                     {
-                        Monsters[mchoice]->buffs.add_dmgbuff(-5, 3);
+                        Monsters[mchoice]->buffs.add_dmgbuff(-5, 10);
                     }
                     else if (myHero->inv.get_spell_type(schoice) == "Ice")
                     {
-                        Monsters[mchoice]->buffs.add_defbuff(-5, 3);
+                        Monsters[mchoice]->buffs.add_defbuff(-5, 10);
                     }
                     else
                     {
-                        Monsters[mchoice]->buffs.add_agibuff(-5, 3);
+                        Monsters[mchoice]->buffs.add_agibuff(-5, 10);
                     }
                 }
             }
         }
     }
+
+    return doneTurn;
 }
 
 /* Function for the hero to use potion in the battle function */
-void CommonSquare::use(Hero* myHero)
+bool CommonSquare::use(Hero* myHero)
 {
+    bool doneTurn = false;
+
     if (myHero->inv.is_potion_list_empty() == true)
     {
         cout << "Potion list is empty!" << endl;
@@ -394,19 +432,22 @@ void CommonSquare::use(Hero* myHero)
             }
             else if (myHero->inv.get_potion_type(pchoice) == "Damage")
             {
-                myHero->buffs.add_dmgbuff(myHero->inv.get_potion_power(pchoice),3);
+                myHero->buffs.add_dmgbuff(myHero->inv.get_potion_power(pchoice), 10);
             }
             else if (myHero->inv.get_potion_type(pchoice) == "Defence")
             {
-                myHero->buffs.add_defbuff(myHero->inv.get_potion_power(pchoice), 3);
+                myHero->buffs.add_defbuff(myHero->inv.get_potion_power(pchoice), 10);
             }
             else
             {
-                myHero->buffs.add_agibuff(myHero->inv.get_potion_power(pchoice), 3);
+                myHero->buffs.add_agibuff(myHero->inv.get_potion_power(pchoice), 10);
             }
 
+            doneTurn = true;
             myHero->inv.remove_potion(pchoice + 1);     // giati + 1?
     }
+
+    return doneTurn;
 }
 
 /* Function for the aftermath of the war */

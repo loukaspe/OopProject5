@@ -168,11 +168,11 @@ bool Grid::moveGrid()
             }
 
             break;
-
-        cout << "----" << didItMove;
-        return didItMove;
-
     }
+
+    cout << "----" << didItMove;
+    return didItMove;
+
 }
 
 /* Function displayMap which will show a map of the grid to the user about market, n-accessible and common

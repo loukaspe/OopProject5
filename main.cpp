@@ -30,7 +30,7 @@ int main(void)
 
     cout << "\tWelcome to our Game\n\nPlease choose how many Heroes you want (One to Three):" << endl;
 	cin >> heroesNumber;
-	while(heroesNumber > 3 && heroesNumber < 1)
+	while(heroesNumber > 3 || heroesNumber < 1)
     {
         cout << "Wrong  Input\nPlease choose between one and three:" << endl;
         cin >> heroesNumber;

@@ -26,23 +26,23 @@ void Hero::print_stats()
 	cout << "Agility= " << agility << endl;
 	cout << "Money= " << money << endl;
 	cout << "Experience= " << experience << endl;
-	cout << "Exprerience required= " << exp_req << endl;
+	cout << "Experience required= " << exp_req << endl;
 
 	if (weapon != NULL)
 	{
-		cout << "Equiped weapon: " << weapon->get_name() << endl;
+		cout << "Equipped weapon: " << weapon->get_name() << endl;
 	}
 	else
 	{
-		cout << "No equiped weapon" << endl;
+		cout << "No equipped weapon" << endl;
 	}
 	if (armor != NULL)
 	{
-		cout << "Equiped armor: " << armor->get_name() << endl;
+		cout << "Equipped armor: " << armor->get_name() << endl;
 	}
 	else
 	{
-		cout << "No equiped armor" << endl;
+		cout << "No equipped armor" << endl;
 	}
 
 	cout << endl;

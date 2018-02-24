@@ -21,9 +21,9 @@ class CommonSquare: public Square
         void showNoBattleOptions();
         void fill_monsters(Monster* Monsters[4],int);
         void print_monsters_in_battle(Monster* monsters[4]);
-        void attack(Hero*, Monster* monsters[4]);
-        void castSpell(Monster* monsters[4], Hero*);
-        void use(Hero*);
+        bool attack(Hero*, Monster* monsters[4]);
+        bool castSpell(Monster* monsters[4], Hero*);
+        bool use(Hero*);
         void afterBattle(Hero**, bool, int);
         int get_xp(Monster* Monsters[4]);
         bool heroes_all_dead(Hero* Heroes[3]);
