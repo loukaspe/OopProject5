@@ -17,7 +17,7 @@ int Living::get_level() { return lvl; }
 /*Hero functions*/
 void Hero::print_stats()
 {
-	cout << "\tHero statistics:"<< endl;
+	cout << "Name: " << name;
 	cout << "Health= " << health << endl;
 	cout << "Level= " << lvl << endl;
 	cout << "Magic power= " << magic_power << endl;
@@ -60,6 +60,9 @@ void Hero::equip_weapon()
     int option;
 
     inv.print_weapons();
+    if(inv.weapon_list.size() == 0)
+        return;
+
     cout << "Choose the weapon you want to equip:" << endl;
     cin >> option;
 
@@ -103,6 +106,9 @@ void Hero::equip_armor()
     int option;
 
     inv.print_armors();
+    if(inv.armor_list.size() == 0)
+        return;
+
     cout << "Choose the armor you want to equip:" << endl;
     cin >> option;
 
@@ -178,6 +184,8 @@ void Warrior::check_levelup()
 		health += +50;
 		c_health += +50;
 		magic_power = +15;
+        cout << "Warrior leveled up!" << endl;
+
 	}
 }
 
