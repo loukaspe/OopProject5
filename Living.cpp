@@ -172,10 +172,11 @@ void Warrior::check_levelup()
 		experience = experience - exp_req;
 		exp_req = exp_req * 1.2 + 100 *lvl;
 		lvl++;
-		strength = +10;
-		dexterity = +5;
-		agility = +7;
-		health = +50;
+		strength += +10;
+		dexterity += +5;
+		agility += +7;
+		health += +50;
+		c_health += +50;
 		magic_power = +15;
 	}
 }
@@ -210,12 +211,16 @@ void Warrior::restore_magicpower(int value)
 
 void Warrior::receive_damage(int dmg)
 {
-	srand(time(NULL));
+//	srand(time(NULL));
 	int evade;
 	evade = rand() % 301;
 	if (evade < (300 - (agility*buffs.get_all_agi())))
 	{
-		c_health = c_health - (dmg*0.5 + dmg * 0.5*(10 / (armor->get_def()*buffs.get_all_def())));
+        if(armor != NULL)
+            c_health = c_health - (dmg*0.5 + dmg * 0.5*(10 / (armor->get_def()*buffs.get_all_def())));
+        else
+            c_health = c_health - dmg;
+
 		if (c_health <= 0)
 		{
 			c_health = 0;
@@ -236,11 +241,12 @@ void Sorcerer::check_levelup()
 		experience = experience - exp_req;
 		exp_req = exp_req * 1.2 + 100 *lvl;
 		lvl++;
-		strength = +5;
-		dexterity = +10;
-		agility = +7;
-		health = +30;
-		magic_power = +35;
+		strength += +5;
+		dexterity += +10;
+		agility += +7;
+		health += +30;
+		c_health += 30;
+		magic_power += +35;
 	}
 }
 
@@ -249,12 +255,16 @@ int Sorcerer::get_cmagicpower() { return c_magicpower; }
 
 void Sorcerer::receive_damage(int dmg)
 {
-	srand(time(NULL));
+//	srand(time(NULL));
 	int evade;
 	evade = rand() % 301;
 	if (evade < (300 - (agility*buffs.get_all_agi())))
 	{
-		c_health = c_health - (dmg*0.5 + dmg * 0.5*(10 / (armor->get_def()*buffs.get_all_def())));
+		if(armor != NULL)
+            c_health = c_health - (dmg*0.5 + dmg * 0.5*(10 / (armor->get_def()*buffs.get_all_def())));
+        else
+            c_health = c_health - dmg;
+
 		if (c_health <= 0)
 		{
 			c_health = 0;
@@ -301,22 +311,27 @@ void Paladin::check_levelup()
 		experience = experience - exp_req;
 		exp_req = exp_req * 1.2 + 100 *lvl;
 		lvl++;
-		strength = +10;
-		dexterity = +7;
-		agility = +5;
-		health = +60;
-		magic_power = +25;
+		strength += +10;
+		dexterity += +7;
+		agility += +5;
+		health += +60;
+		c_health += 60;
+		magic_power += +25;
 	}
 }
 
 void Paladin::receive_damage(int dmg)
 {
-	srand(time(NULL));
+//	srand(time(NULL));
 	int evade;
 	evade = rand() % 301;
 	if (evade < (300 - (agility*buffs.get_all_agi())))
 	{
-		c_health = c_health - (dmg*0.5 + dmg * 0.5*(10 / (armor->get_def()*buffs.get_all_def())));
+        if(armor != NULL)
+            c_health = c_health - (dmg*0.5 + dmg * 0.5*(10 / (armor->get_def()*buffs.get_all_def())));
+        else
+            c_health = c_health - dmg;
+
 		if (c_health <= 0)
 		{
 			c_health = 0;
@@ -395,7 +410,7 @@ void Dragon::print_data()
 
 void Dragon::receive_damage(int dmg)
 {
-	srand(time(NULL));
+//	srand(time(NULL));
 	int evade;
 	evade = rand() % 301;
 	if (evade < (300 - (agility*buffs.get_all_agi())))
@@ -431,7 +446,7 @@ void  Exoskeleton::print_data()
 
 void Exoskeleton::receive_damage(int dmg)
 {
-	srand(time(NULL));
+//	srand(time(NULL));
 	int evade;
 	evade = rand() % 301;
 	if (evade < (300 - (agility*buffs.get_all_agi())))
@@ -469,7 +484,7 @@ void Spirit::print_data()
 
 void Spirit::receive_damage(int dmg)
 {
-	srand(time(NULL));
+//	srand(time(NULL));
 	int evade;
 	evade = rand() % 301;
 	if (evade < (300 - (agility*buffs.get_all_agi())))

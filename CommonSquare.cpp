@@ -43,9 +43,15 @@ void CommonSquare::battle(Hero** myHeroes)
     }
 
     if(monsters_all_dead(Monsters))
+    {
         heroesWon = true;
+        cout << "\n\tHeroes Won!!" << endl << endl;
+    }
     else
+    {
         heroesWon = false;
+        cout << "\n\tMonsters Won.." << endl << endl;
+    }
 
     cout << heroesWon;
 
@@ -100,7 +106,7 @@ void CommonSquare::herosRestore(Hero** myHeroes)        // Loukas
 {
     for(int i = 0; i < 3; i++)
     {
-        if(myHeroes != NULL)
+        if(myHeroes[i] != NULL)
         {
             if(myHeroes[i]->get_chealth() != 0)
             {
@@ -132,7 +138,7 @@ void CommonSquare::battleMonstersTurn(Hero* myHeroes[3], Monster* Monsters[4])
                     {
                         h_att = rand() % 3;
                     }
-                    cout << "A Monster will attack the #" << h_att + 1 << " Hero!" << endl;
+                    cout << "A Monster will attack the #" << h_att << " Hero!" << endl;
                     myHeroes[h_att]->receive_damage(Monsters[i]->get_damage()*Monsters[i]->buffs.get_all_dmg());
                     cout << "Health remaining= " << myHeroes[h_att]->get_chealth() << endl;
                     update_buffs(myHeroes, Monsters);
@@ -192,7 +198,7 @@ void CommonSquare::noBattle(Hero** myHeroes)
 /* Function to show a menu to the user to choose what to do in the common square if not battle happens */
 void CommonSquare::showNoBattleOptions()
 {
-    cout << "Please choose your option:" << endl;
+    cout << "\nPlease choose your option:" << endl;
     cout << "Check your Inventory (Press 1)" << endl;
     cout << "Change Equipped Weapon (Press 2)" << endl;
     cout << "Change Equipped Armor (Press 3)" << endl;
@@ -204,7 +210,7 @@ void CommonSquare::showNoBattleOptions()
 /* Function to show a menu to the user to choose what to do in the battle */
 void CommonSquare::showBattleOptions()
 {
-    cout << "Please choose your option:" << endl;
+    cout << "\nPlease choose your option:" << endl;
     cout << "Attack (Press 1)" << endl;
     cout << "Cast Spell (Press 2)" << endl;
     cout << "Use a Potion (Press 3)" << endl;
@@ -474,6 +480,12 @@ void CommonSquare::afterBattle(Hero** myHeroes, bool heroesWon, int winXp)
                 myHeroes[i]->restore_health(myHeroes[i]->get_health()/2);
             }
         }
+    }
+
+    for(int i = 0; i < 3; i++)
+    {
+        if(myHeroes[i] != NULL)
+            myHeroes[i]->check_levelup();
     }
 }
 

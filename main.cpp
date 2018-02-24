@@ -24,6 +24,8 @@ using namespace std;
 
 int main(void)
 {
+    srand(time(NULL));
+
     int heroesNumber;
     int r;
     Hero* myHeroes[3] = {NULL, NULL, NULL};
@@ -41,7 +43,6 @@ int main(void)
     Market* myMarket = MarketSquare::getMarket(inFile);
     inFile.close();
 
-    srand(time(NULL));
     for(int i = 0; i < heroesNumber; i++)
     {
         r = rand()%3;
@@ -60,6 +61,8 @@ int main(void)
     }
 
     Grid* myGrid = new Grid(5, 5);
+    myHeroes[0]->addMoney(59999);
+    myHeroes[1]->addMoney(59999);
 
     while(1)
     {
@@ -110,7 +113,7 @@ void play(Grid* myGrid, Hero** myHeroes)
 
 void showPlayOptions()
 {
-    cout << "Please choose your option:" << endl;
+    cout << "\nPlease choose your option:" << endl;
     cout << "Move on Grid (Press 1)" << endl;
     cout << "See the Map (Press 2)" << endl;
     cout << "Show Hero's Information (Press 3)" << endl;

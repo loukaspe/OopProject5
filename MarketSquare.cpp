@@ -249,7 +249,7 @@ void MarketSquare::displayMenu(Hero** myHeroes)
             cout << "Type the Spell number you want to sell" << endl;
             cin >> itemNo;
 
-            if (myHero->inv.get_spell_list_size() >= itemNo)
+            if (myHero->inv.get_spell_list_size() >= itemNo && itemNo > 0)
             {
                 myHero->addMoney(myHero->inv.get_spell_price(itemNo - 1)/ 2);
                 myHero->inv.remove_spell(itemNo);
@@ -265,7 +265,7 @@ void MarketSquare::displayMenu(Hero** myHeroes)
             cout << "Type the Weapon number you want to sell" << endl;
             cin >> itemNo;
 
-            if (myHero->inv.get_weapon_list_size() >= itemNo)
+            if (myHero->inv.get_weapon_list_size() >= itemNo && itemNo > 0)
             {
                 myHero->addMoney(myHero->inv.get_weapon_price(itemNo - 1) / 2);
                 myHero->inv.remove_weapon(itemNo);
@@ -281,7 +281,7 @@ void MarketSquare::displayMenu(Hero** myHeroes)
             cout << "Type the Armor number you want to sell" << endl;
             cin >> itemNo;
 
-            if (myHero->inv.get_armor_list_size() >= itemNo)
+            if (myHero->inv.get_armor_list_size() >= itemNo && itemNo > 0)
             {
                 myHero->addMoney(myHero->inv.get_armor_price(itemNo - 1) / 2);
                 myHero->inv.remove_armor(itemNo);
@@ -297,7 +297,7 @@ void MarketSquare::displayMenu(Hero** myHeroes)
             cout << "Type the Potion number you want to sell" << endl;
             cin >> itemNo;
 
-            if (myHero->inv.get_potion_list_size() >= itemNo)
+            if (myHero->inv.get_potion_list_size() >= itemNo && itemNo > 0)
             {
                 myHero->addMoney(myHero->inv.get_potion_price(itemNo - 1) / 2);
                 myHero->inv.remove_potion(itemNo);
@@ -317,7 +317,7 @@ void MarketSquare::displayMenu(Hero** myHeroes)
 
 void showMarketOptions()
 {
-    cout << "Please choose your option:" << endl;
+    cout << "\nPlease choose your option:" << endl;
     cout << "Buy (Press 1)" << endl;
     cout << "Sell (Press 2)" << endl;
     cout << "Show Inventory (Press 3)" << endl;
@@ -326,7 +326,7 @@ void showMarketOptions()
 
 void showBuyOptions()
 {
-        cout << "Please choose your option:" << endl;
+        cout << "\nPlease choose your option:" << endl;
         cout << "Buy Weapon (Press 1)" << endl;
         cout << "Buy Spell (Press 2)" << endl;
         cout << "Buy Armor (Press 3)" << endl;
@@ -336,7 +336,7 @@ void showBuyOptions()
 
 void showSellOptions()
 {
-    cout << "Please choose your option:" << endl;
+    cout << "\nPlease choose your option:" << endl;
     cout << "Check your inventory (Press 1)" << endl;
     cout << "Sell your equipped Armor (Press 2)" << endl;
     cout << "Sell your equipped Weapon (Press 3)" << endl;

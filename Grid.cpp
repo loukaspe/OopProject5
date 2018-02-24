@@ -15,7 +15,7 @@ Grid::Grid(int x, int y): dimensionX(x), dimensionY(y)
 {
     int r;
 
-    srand(time(NULL));
+    //srand(time(NULL));
 
     grid = new Square**[y];
     for(int i = 0; i < y; ++i)

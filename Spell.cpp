@@ -27,13 +27,14 @@ string Spell::get_type() { return type; }
 
 void Spell::print_info()
 {
-	cout << "Spell information:" << endl;
+	cout << "/tSpell information:" << endl;
 	cout << "Name: " << name << endl;
 	cout << "Type: " << type << endl;
 	cout << "Price: " << price << endl;
 	cout << "Minimum level: " << min_lvl << endl;
 	cout << "Damage: " << damage << endl;
 	cout << "Mana required: " << mana_req << endl;
+	cout << endl;
 }
 
 FireSpell::FireSpell(string nm, int pr, int mlvl, int dmg, int manr): Spell(nm, pr, mlvl, dmg, manr)

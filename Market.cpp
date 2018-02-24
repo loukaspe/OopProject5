@@ -38,7 +38,7 @@ Market::Market(ifstream& inFile)
 
     if(inFile.is_open())
     {
-        for(int i = 0; i < 20; i++)
+        for(int i = 0; i < 5; i++)
         {
             inFile >> w_nm
                    >> w_pr
