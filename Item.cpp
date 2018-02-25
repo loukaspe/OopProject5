@@ -34,7 +34,8 @@ void Weapon::print_info()
 	cout << "\tWeapon information: " << endl;
 	cout << "Name: " << name << endl;
 	cout << "Price: " << price << endl;
-	cout << "Damage: " << damage ;
+	cout << "Damage: " << damage << endl ;
+	cout << "Minimum Level: " << min_lvl  << endl;
 	if (hand == 1)
 	{
 		cout << " (One-handed)" << endl;

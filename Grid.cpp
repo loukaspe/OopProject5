@@ -75,7 +75,7 @@ bool Grid::moveGrid()
 {
     bool didItMove = false;         // Loukas - variable to return whether the Hero moved or not in the grid
     char direction;
-    cout << "Please choose the direction:\n(w: Up, a: Left, s: Down, d: Right" << endl;
+    cout << "Please choose the direction:\n(w: Up, a: Left, s: Down, d: Right)" << endl;
     cin >> direction;
     while(direction != 'w' && direction != 'a' && direction != 's' && direction != 'd')
     {
@@ -170,7 +170,6 @@ bool Grid::moveGrid()
             break;
     }
 
-    cout << "----" << didItMove;
     return didItMove;
 
 }

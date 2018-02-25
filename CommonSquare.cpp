@@ -29,11 +29,13 @@ void CommonSquare::battle(Hero** myHeroes)
     cout << "There will be a battle in this square\n\n\tBATTLE" << endl;
     bool heroesWon;                 // variable to see if the Heroes won the Monsters
     int winExp;                     // variable about how much XP will the heroes gain if they win
+    int winMoney;                   // variable about how much money  will the heroes gain if they win
     /* dhmiourgia teratwn */
     Monster* Monsters[4];
 	int lvl = myHeroes[0]->get_level();
 	fill_monsters(Monsters,lvl);
 	winExp = get_xp(Monsters);
+	winMoney = get_money(Monsters);
 
 	while(!heroes_all_dead(myHeroes) && !monsters_all_dead(Monsters))
     {
@@ -53,9 +55,7 @@ void CommonSquare::battle(Hero** myHeroes)
         cout << "\n\tMonsters Won.." << endl << endl;
     }
 
-    cout << heroesWon;
-
-    afterBattle(myHeroes, heroesWon, winExp);
+    afterBattle(myHeroes, heroesWon, winExp, winMoney);
 }
 
 /* Function for the Heroes' turn in the battle */
@@ -200,13 +200,13 @@ void CommonSquare::noBattle(Hero** myHeroes)
 /* Function to show a menu to the user to choose what to do in the common square if not battle happens */
 void CommonSquare::showNoBattleOptions()
 {
-    cout << "\nPlease choose your option:" << endl;
-    cout << "Check your Inventory (Press 1)" << endl;
-    cout << "Change Equipped Weapon (Press 2)" << endl;
-    cout << "Change Equipped Armor (Press 3)" << endl;
-    cout << "Use a Potion (Press 4)" << endl;
-    cout << "Show Hero's Information (Press 5)" << endl;
-    cout << "Continue your journey (Press 6)" << endl << endl;
+    cout << "\n Please choose your option:" << endl;
+    cout << " Check your Inventory (Press 1)" << endl;
+    cout << " Change Equipped Weapon (Press 2)" << endl;
+    cout << " Change Equipped Armor (Press 3)" << endl;
+    cout << " Use a Potion (Press 4)" << endl;
+    cout << " Show Hero's Information (Press 5)" << endl;
+    cout << " Continue your journey (Press 6)" << endl << endl;
 }
 
 /* Function to show a menu to the user to choose what to do in the battle */
@@ -273,7 +273,7 @@ void CommonSquare::fill_monsters(Monster* Monsters[4],int lvl)
 /* Function to print out what monsters exist in the battle field for the user to choose where to attack */
 void CommonSquare::print_monsters_in_battle(Monster* monsters[4])
 {
-	cout << "MONSTERS IN BATTLE: { ";
+	cout << "\tMONSTERS IN BATTLE: { ";
 	for (int i = 0; i < 4; i++)
 	{
 		if (monsters[i] != NULL)
@@ -459,7 +459,7 @@ bool CommonSquare::use(Hero* myHero)
 }
 
 /* Function for the aftermath of the war */
-void CommonSquare::afterBattle(Hero** myHeroes, bool heroesWon, int winXp)
+void CommonSquare::afterBattle(Hero** myHeroes, bool heroesWon, int winXp, int winMoney)
 {
     if(heroesWon == true)       // if the heroes won the battle
     {
@@ -467,7 +467,7 @@ void CommonSquare::afterBattle(Hero** myHeroes, bool heroesWon, int winXp)
         {
             if(myHeroes[i] != NULL)
             {
-                myHeroes[i]->addMoney(10);          // posa lefta?
+                myHeroes[i]->addMoney(winMoney);
                 myHeroes[i]->addExperience(winXp);
             }
         }
@@ -503,6 +503,20 @@ int CommonSquare::get_xp(Monster* Monsters[4])
 		}
 	}
 	return xp;
+}
+
+/* Function to gain the Money from the battle */
+int CommonSquare::get_money(Monster* Monsters[4])
+{
+    int money=0;
+	for (int i = 0 ; i < 4 ; i++)
+	{
+		if (Monsters[i] != NULL)
+		{
+			money += Monsters[i]->get_level() * 75;
+		}
+	}
+	return money;
 }
 
 /* Function to check if the heroes are all fainted */

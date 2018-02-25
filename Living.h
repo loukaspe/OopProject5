@@ -53,7 +53,7 @@ public:
 		strength = str;
 		dexterity = dex;
 		agility = agi;
-		money = 0;
+		money = 500;
 		experience = 0;
 		exp_req = 1000;
 		armor = NULL;

@@ -24,8 +24,9 @@ class CommonSquare: public Square
         bool attack(Hero*, Monster* monsters[4]);
         bool castSpell(Monster* monsters[4], Hero*);
         bool use(Hero*);
-        void afterBattle(Hero**, bool, int);
+        void afterBattle(Hero**, bool, int, int);
         int get_xp(Monster* Monsters[4]);
+        int get_money(Monster* Monsters[4]);
         bool heroes_all_dead(Hero* Heroes[3]);
         bool monsters_all_dead(Monster* Monsters[4]);
         void update_buffs(Hero**, Monster* Monsters[4]);

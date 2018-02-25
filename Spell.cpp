@@ -27,7 +27,7 @@ string Spell::get_type() { return type; }
 
 void Spell::print_info()
 {
-	cout << "/tSpell information:" << endl;
+	cout << "\tSpell information:" << endl;
 	cout << "Name: " << name << endl;
 	cout << "Type: " << type << endl;
 	cout << "Price: " << price << endl;

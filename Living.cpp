@@ -44,8 +44,6 @@ void Hero::print_stats()
 	{
 		cout << "No equipped armor" << endl;
 	}
-
-	cout << endl;
 }
 string Hero::get_name() { return name; }
 int Hero::get_magicpower() { return magic_power; }
@@ -78,7 +76,7 @@ void Hero::equip_weapon()
 
 void Hero::equip_weapon(int no)
 {
-	if (inv.weapon_list.size() >= no)
+	if (inv.weapon_list.size() >= no && no > 0)
 	{
 		if (weapon == NULL)
 		{
@@ -124,7 +122,7 @@ void Hero::equip_armor()
 
 void Hero::equip_armor(int no)
 {
-	if (inv.armor_list.size() >= no)
+	if (inv.armor_list.size() >= no && no > 0)
 	{
 		if (armor == NULL)
 		{
@@ -247,6 +245,7 @@ void Warrior::print_stats()
 	Hero::print_stats();
 	cout << "Current health: " << c_health << endl;
 	cout << "Current magic power: " << c_magicpower << endl;
+	cout << endl;
 }
 
 /*Sorcerer functions*/
@@ -326,6 +325,7 @@ void Sorcerer::print_stats()
 	Hero::print_stats();
 	cout << "Current health: " << c_health << endl;
 	cout << "Current magic power: " << c_magicpower << endl;
+	cout << endl;
 }
 
 /*Paladin functions*/
@@ -405,6 +405,7 @@ void Paladin::print_stats()
 	Hero::print_stats();
 	cout << "Current health: " << c_health << endl;
 	cout << "Current magic power: " << c_magicpower << endl;
+	cout << endl;
 }
 
 

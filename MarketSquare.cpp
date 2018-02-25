@@ -338,34 +338,34 @@ void MarketSquare::displayMenu(Hero** myHeroes)
 
 void showMarketOptions()
 {
-    cout << "\nPlease choose your option:" << endl;
-    cout << "Buy (Press 1)" << endl;
-    cout << "Sell (Press 2)" << endl;
-    cout << "Show Inventory (Press 3)" << endl;
-    cout << "Continue your journey (Press 4)" << endl << endl;
+    cout << "\n Please choose your option:" << endl;
+    cout << " Buy (Press 1)" << endl;
+    cout << " Sell (Press 2)" << endl;
+    cout << " Show Inventory (Press 3)" << endl;
+    cout << " Continue your journey (Press 4)" << endl << endl;
 }
 
 void showBuyOptions()
 {
-        cout << "\nPlease choose your option:" << endl;
-        cout << "Buy Weapon (Press 1)" << endl;
-        cout << "Buy Spell (Press 2)" << endl;
-        cout << "Buy Armor (Press 3)" << endl;
-        cout << "Buy Potion (Press 4)" << endl;
-        cout << "Return to the Market Menu (Press 5)" << endl << endl;
+        cout << "\n Please choose your option:" << endl;
+        cout << " Buy Weapon (Press 1)" << endl;
+        cout << " Buy Spell (Press 2)" << endl;
+        cout << " Buy Armor (Press 3)" << endl;
+        cout << " Buy Potion (Press 4)" << endl;
+        cout << " Return to the Market Menu (Press 5)" << endl << endl;
 }
 
 void showSellOptions()
 {
-    cout << "\nPlease choose your option:" << endl;
-    cout << "Check your inventory (Press 1)" << endl;
-    cout << "Sell your equipped Armor (Press 2)" << endl;
-    cout << "Sell your equipped Weapon (Press 3)" << endl;
-    cout << "Sell Spell (Press 4)" << endl;
-    cout << "Sell Weapon (Press 5)" << endl;
-    cout << "Sell Armor (Press 6)" << endl;
-    cout << "Sell Potion (Press 7)" << endl;
-    cout << "Return to the Market Menu (Press 8)" << endl << endl;
+    cout << "\n Please choose your option:" << endl;
+    cout << " Check your inventory (Press 1)" << endl;
+    cout << " Sell your equipped Armor (Press 2)" << endl;
+    cout << " Sell your equipped Weapon (Press 3)" << endl;
+    cout << " Sell Spell (Press 4)" << endl;
+    cout << " Sell Weapon (Press 5)" << endl;
+    cout << " Sell Armor (Press 6)" << endl;
+    cout << " Sell Potion (Press 7)" << endl;
+    cout << " Return to the Market Menu (Press 8)" << endl << endl;
 }
 
 
