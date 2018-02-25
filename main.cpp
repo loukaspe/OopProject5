@@ -26,29 +26,29 @@ int main(void)
 {
     srand(time(NULL));                                  // start of the random numbers' generator
 
-    int heroesNumber;                                   // variable
-    int r;
-    string name;
-    bool endGame = false;
-    Hero* myHeroes[3] = {NULL, NULL, NULL};
+    int heroesNumber;                                   // variable for the heroes number
+    int r;                                              // int to be used as random number
+    string name;                                        // variable for the name of the heroes
+    bool endGame = false;                               // bool variable that will be the return value of endGame function to check if the game will end
+    Hero* myHeroes[3] = {NULL, NULL, NULL};             // array creation of 3 Null hero pointers
 
     cout << "\tWelcome to our Game\n\nPlease choose how many Heroes you want (One to Three):" << endl;
-	cin >> heroesNumber;
-	while(heroesNumber > 3 || heroesNumber < 1)
+	cin >> heroesNumber;                                // welcome message print and read from user the heroes' number along with check about this
+	while(heroesNumber > 3 || heroesNumber < 1)         // number(1-3)
     {
         cout << "Wrong  Input\nPlease choose between one and three:" << endl;
         cin >> heroesNumber;
     }
 
-    ifstream inFile;
+    ifstream inFile;                                    // ifstream creation and items.txt open to read the Market's products from a file
     inFile.open("items.txt");
     Market* myMarket = MarketSquare::getMarket(inFile);
-    inFile.close();
+    inFile.close();                                     // close the items.txt file
 
-    inFile.open("heroesNames.txt");
+    inFile.open("heroesNames.txt");                     // open the heroesNames.txt to read the Heroes' names from a file
 
-    for(int i = 0; i < heroesNumber; i++)
-    {
+    for(int i = 0; i < heroesNumber; i++)               // through rand() there are three options: paladin, sorcerer and warrior
+    {                                                   // each of them will take a name from the file
         r = rand()%3;
         if(r == 0)
         {
@@ -67,15 +67,15 @@ int main(void)
         }
     }
 
-    inFile.close();
+    inFile.close();                                     // and close the file
 
-    Grid* myGrid = new Grid(5, 5);
+    Grid* myGrid = new Grid(5, 5);                      // then we create the Grid with a total of 25 squares
 
-    while(endGame == false)
-    {
+    while(endGame == false)                             // and while the endGame is false(which means that the play function hasnt returned
+    {                                                   // a true value from the user) the game is played
         endGame = play(myGrid, myHeroes);
     }
-
+                                                        // when we break from the while loop the program returns 0 and ends
 	return 0;
 }
 /* Function that will run the playtime of the game
