@@ -16,7 +16,7 @@ CommonSquare::~CommonSquare()
 /* Function for when the user is on a Common Square */
 void CommonSquare::displayMenu(Hero** myHeroes)
 {
-    // There are two options: Battle or ShowMenu depending on the outcome of the rand and the BATTLE_POSSIBILITY = 50
+    // There are two options: Battle or noBattle depending on the outcome of the rand and the BATTLE_POSSIBILITY = 50
     int r = rand() % 101;
     if(r >= BATTLE_POSSIBILITY)
         battle(myHeroes);
@@ -68,7 +68,7 @@ void CommonSquare::battleHerosTurn(Hero** myHeroes, Monster* Monsters[4])
     bool doneTurn;                                              // user has done his turn( we consider that a turn is done only if the user
                                                                 // attacks, casts spell or uses a potion
     for(int i = 0; i < 3; i++)                                  // For the Max of 3 Heroes, if they exist(so they are not Null), and they are
-    {                                                           // alive(their health > 0) and if the monsters havent died while the heroes
+    {                                                           // alive(their health > 0) and if the monsters haven't died while the heroes
         if(myHeroes[i] != NULL && myHeroes[i]->get_chealth() > 0 && !monsters_all_dead(Monsters))
         {                                                       // turn is done then
             doneTurn = false;

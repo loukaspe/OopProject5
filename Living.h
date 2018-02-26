@@ -75,12 +75,36 @@ public:
 	void equip_armor(int no);
 
 	//These functions should not be accessed from a Hero class perspective
-	virtual void restore_health(int value) { cout << "BAD ACCESS!" << endl; };
-	virtual void restore_magicpower(int value) { cout << "BAD ACCESS!" << endl; }
-	virtual void receive_damage(int dmg) { cout << "BAD ACCESS!" << endl; }
-	virtual int get_chealth() { cout << "BAD ACCESS!" << endl; return 0; }
-	virtual int get_cmagicpower() { cout << "BAD ACCESS!" << endl; return 0; }
-	virtual void sub_magicpower(int value){cout << "BAD ACCESS!";}
+	virtual void restore_health(int value)
+	{
+	    cout << "BAD ACCESS!" << endl;
+	    exit(1);
+    }
+	virtual void restore_magicpower(int value)
+	{
+	    cout << "BAD ACCESS!" << endl;
+	    exit(1);
+    }
+	virtual void receive_damage(int dmg)
+	{
+	    cout << "BAD ACCESS!" << endl;
+	    exit(1);
+    }
+	virtual int get_chealth()
+	{
+	    cout << "BAD ACCESS!" << endl;
+	    exit(1);
+    }
+	virtual int get_cmagicpower()
+	{
+	    cout << "BAD ACCESS!" << endl;
+	    exit(1);
+    }
+	virtual void sub_magicpower(int value)
+	{
+	    cout << "BAD ACCESS!" << endl;
+	    exit(1);
+    }
 
 
 	void addExperience(int value);

@@ -16,9 +16,9 @@
 #include "Square.h"
 #include "Living.h"
 
-bool play(Grid*, Hero**);               // play, showPlayOptions and endGame declarations
+bool play(Grid*, Hero**, Market*);                      // play, showPlayOptions and endGame declarations
 void showPlayOptions();
-void endGame(Hero**, Grid*);
+void endGame(Hero**, Grid*, Market*);
 
 using namespace std;
 
@@ -73,14 +73,14 @@ int main(void)
 
     while(endGame == false)                             // and while the endGame is false(which means that the play function hasnt returned
     {                                                   // a true value from the user) the game is played
-        endGame = play(myGrid, myHeroes);
+        endGame = play(myGrid, myHeroes, myMarket);
     }
                                                         // when we break from the while loop the program returns 0 and ends
 	return 0;
 }
 /* Function that will run the playtime of the game
- * It has a Hero** and Grid* arguments and returns a boolean value */
-bool play(Grid* myGrid, Hero** myHeroes)
+ * It has a Hero**, Market* and Grid* arguments and returns a boolean value */
+bool play(Grid* myGrid, Hero** myHeroes, Market* myMarket)
 {
     bool didItMove;                                 // bool variable to check if the moveGrid actually moved the heroes
     bool quitGame = false;                          // bool variable to check if the user chose to end the game, set firstly to false
@@ -116,7 +116,7 @@ bool play(Grid* myGrid, Hero** myHeroes)
     }
     else if(option == 4)                            // the fourth choice is to end the game through the endGame function which deletes
     {                                               // the pointers etc. Also the quitGame variable becomes true so that the main "knows"
-        endGame(myHeroes, myGrid);                  // the program has to end
+        endGame(myHeroes, myGrid, myMarket);        // the program has to end
         quitGame = true;
     }
     return quitGame;                                // finally we return the quitGame
@@ -134,14 +134,15 @@ void showPlayOptions()
 
 /* Function to end the game in the main
  * it has a Hero** and Grid* arguments */
-void endGame(Hero** myHeroes, Grid* myGrid)
+void endGame(Hero** myHeroes, Grid* myGrid, Market* myMarket)
 {
     for(int i = 0; i < 3; i++)                  // for each hero we delete the pointer to him
     {
         delete myHeroes[i];
     }
-    delete myHeroes;                            // and then the array of these pointers
+
     delete myGrid;                              // then the pointer of the grid
+    delete myMarket;                            // then the pointer of the grid
 
     cout << "\n\n\t END GAME" << endl;          // and in the end we print relevant message
 
